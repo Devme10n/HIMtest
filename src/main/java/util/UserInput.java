@@ -1,5 +1,6 @@
 package util;
 //추가 라이브러리 불러옴
+import java.util.Objects;
 import java.util.Scanner;
 
 //데코레이터 디자인 패턴을 사용해서 사용자에게 값을 받고 예외처리를 한 뒤 돌려주는 클래스
@@ -95,7 +96,7 @@ class IntCheck extends CheckDecorator {
     private String drawInt(String checkString) {
         userInput = checkString;
         intBoolean = userInput.matches("-?\\d+");
-        if (intBoolean == false) {
+        if (!intBoolean) {
             userInput = "error";
             System.out.println("\n error.문자열이 아닌 0보다 큰 정수를 입력해주세요.");
             return userInput;
@@ -125,7 +126,7 @@ class YearCheck extends CheckDecorator {
     }
     private String drawYear(String checkString) {
         userInput = checkString;
-        if(userInput == "error"){ return userInput; }
+        if(Objects.equals(userInput, "error")){ return userInput; }
         if (Integer.parseInt(userInput) >= 2000 && Integer.parseInt(userInput) <= 2100){
             return userInput;
         }
@@ -150,7 +151,7 @@ class MonthCheck extends CheckDecorator {
     }
     private String drawMonth(String checkString) {
         userInput = checkString;
-        if(userInput == "error"){ return userInput; }
+        if(Objects.equals(userInput, "error")){ return userInput; }
         if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 12){
             return userInput;
         }
@@ -175,7 +176,7 @@ class DayCheck extends CheckDecorator {
     }
     private String drawDay(String checkString) {
         userInput = checkString;
-        if(userInput == "error"){ return userInput; }
+        if(Objects.equals(userInput, "error")){ return userInput; }
         if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 31){
             return userInput;
         }
