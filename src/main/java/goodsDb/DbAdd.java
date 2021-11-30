@@ -66,7 +66,7 @@ class DbAddInterface {
     //식료품 추가 메소드
     public void eatGoodsAdd()  {
         Db dbInstance = Db.getInstance(); //db인스턴스의 주소를 가져옴
-        JSONObject mainDbObject = Db.getdb(); //물품 전체 db를 JSONObject로 가져옴
+        JSONObject mainDbObject = dbInstance.getdb(); //물품 전체 db를 JSONObject로 가져옴
         JSONArray eatGoodsArray = (JSONArray) mainDbObject.get("eatGoods"); //식료품들의 JSONObject정보들을 담을 JSONArray 선언
         JSONObject eatGoodsInfo = new JSONObject(); // 식료품 속성들의 정보가 들어갈 JSONObject 선언
 
@@ -92,7 +92,7 @@ class DbAddInterface {
     //비식료품 추가 메소드
     public void notEatGoodsAdd()  {
         Db dbInstance = Db.getInstance(); //db인스턴스의 주소를 가져옴
-        JSONObject mainDbObject = Db.getdb(); //물품 전체 db를 JSONObject로 가져옴
+        JSONObject mainDbObject = dbInstance.getdb(); //물품 전체 db를 JSONObject로 가져옴
         JSONArray notEatGoodsArray = (JSONArray) mainDbObject.get("notEatGoods"); //비식료품들의 JSONObject정보들을 담을 JSONArray 선언
         JSONObject notEatGoodsInfo = new JSONObject(); // 비식료품 속성들의 정보가 들어갈 JSONObject 선언
 
@@ -138,7 +138,7 @@ class DbAddInterface {
     //자동구매를 설정한 비식료품 추가 메소드
     public void autoNotEatGoodsAdd() {
         Db dbInstance = Db.getInstance();
-        JSONObject mainDbObject = Db.getdb();
+        JSONObject mainDbObject = dbInstance.getdb();
         JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
         JSONObject autoNotEatGoodsInfo = new JSONObject();
 
