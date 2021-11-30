@@ -54,8 +54,7 @@ public class Main {
 
 
         UserDateSet.userListSet();
-        System.out.println("====님 회원임?====");
-        String n = input( "member is 1 or not 2");
+        String n = input( "로그인 1 회원가입 2 를 입력해주세요.");
 
         if (n.equals("1")) {
             Login.login();

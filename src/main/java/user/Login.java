@@ -4,32 +4,36 @@ import main.Main;
 
 public class Login {
 
-
-
     public static void login() {
 
         int cnt = 0;
+        System.out.println("========= 로그인 ==========");
 
-        System.out.println("========= check page ==========");
         while(true){
 
-            String id= Main.input("ID? : ");
-            String password =Main.input("PW? : ");
-            if(!UserDateSet.userList.containsKey(id)) //널값 미 체크시 널 포인트 오류가 뜬다.
-                System.out.println("not found");
-            else {
+            String id= Main.input("ID : ");
+            String password =Main.input("PW : ");
 
-
+            try{
                 if(UserDateSet.userList.get(id).getPassword().equals(password)) {
-                    System.out.println("success.");
+                    System.out.println("로그인 하였습니다.");
                     break;
                 }
                 else {
-                    System.out.println("false: plz retry");
+                    System.out.println("비밀번호가 다릅니다.");
                     cnt++;
                 }
+                throw new Exception(); //강제 에러 출력
+            }
+            catch (Exception e){
+                if(!UserDateSet.userList.containsKey(id)) {
+                    System.out.println("없는 계정입니다. 회원 가입으로 전환합니다.");
+                    Register.register();
+                }
+            }
+            finally{
                 if(cnt ==3) {//카운터 값을 줘 3번 실패시 회원가입 창으로 넘어가게 했다.
-                    System.out.println("false: stop don't do that");
+                    System.out.println("비밀번호가 다릅니다. 회원 가입으로 전환합니다.");
                     Register.register();
                 }
 
