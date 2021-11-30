@@ -65,8 +65,7 @@ class DbAddInterface {
     }
     //식료품 추가 메소드
     public void eatGoodsAdd()  {
-        Db dbInstance = Db.getInstance(); //db인스턴스의 주소를 가져옴
-        JSONObject mainDbObject = dbInstance.getdb(); //물품 전체 db를 JSONObject로 가져옴
+        JSONObject mainDbObject = Db.getdb(); //물품 전체 db를 JSONObject로 가져옴
         JSONArray eatGoodsArray = (JSONArray) mainDbObject.get("eatGoods"); //식료품들의 JSONObject정보들을 담을 JSONArray 선언
         JSONObject eatGoodsInfo = new JSONObject(); // 식료품 속성들의 정보가 들어갈 JSONObject 선언
 
@@ -91,8 +90,7 @@ class DbAddInterface {
     }
     //비식료품 추가 메소드
     public void notEatGoodsAdd()  {
-        Db dbInstance = Db.getInstance(); //db인스턴스의 주소를 가져옴
-        JSONObject mainDbObject = dbInstance.getdb(); //물품 전체 db를 JSONObject로 가져옴
+        JSONObject mainDbObject = Db.getdb(); //물품 전체 db를 JSONObject로 가져옴
         JSONArray notEatGoodsArray = (JSONArray) mainDbObject.get("notEatGoods"); //비식료품들의 JSONObject정보들을 담을 JSONArray 선언
         JSONObject notEatGoodsInfo = new JSONObject(); // 비식료품 속성들의 정보가 들어갈 JSONObject 선언
 
@@ -105,14 +103,13 @@ class DbAddInterface {
         notEatGoodsInfo.put("addMonth",ADD_DATE.add("M"));
         notEatGoodsInfo.put("addDay",ADD_DATE.add("D"));
 
-        notEatGoodsArray.add(notEatGoodsArray);//비식료품의 정보를 받는 배열에 식료품 하나의 정보가 모두 담긴 오브젝트를 삽입
+        notEatGoodsArray.add(notEatGoodsInfo);//비식료품의 정보를 받는 배열에 식료품 하나의 정보가 모두 담긴 오브젝트를 삽입
         mainDbObject.put("notEatGoods", notEatGoodsArray); // 물품 전체 db에 추가된 비식료품 JSONArray를 넣음
         Db.putdb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
 
     }
     //자동구매를 설정한 식료품 추가 메소드
     public void autoEatGoodsAdd() {
-        Db dbInstance = Db.getInstance();
         JSONObject mainDbObject = Db.getdb();
         JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods");
         JSONObject autoEatGoodsInfo = new JSONObject();
@@ -137,8 +134,7 @@ class DbAddInterface {
     }
     //자동구매를 설정한 비식료품 추가 메소드
     public void autoNotEatGoodsAdd() {
-        Db dbInstance = Db.getInstance();
-        JSONObject mainDbObject = dbInstance.getdb();
+        JSONObject mainDbObject = Db.getdb();
         JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
         JSONObject autoNotEatGoodsInfo = new JSONObject();
 
@@ -199,7 +195,7 @@ class CodeProperty extends StrPropertyAdd{
                 notEatGoodsCode += 1;
                 return out;
             }
-            case "c" -> {
+            case "C" -> {
                 out = "C" + autoEatGoodsCode;
                 autoEatGoodsCode += 1;
                 return out;
