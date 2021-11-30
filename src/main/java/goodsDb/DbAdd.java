@@ -267,7 +267,6 @@ class AddDateProperty extends StrPropertyAdd{
 //물건의 유통기한 속성값을 추가하는 하위클래스
 class ExpDateProperty extends StrPropertyAdd{
 
-    int check;
     @Override
     public String add(String sel){
         switch (sel) {
