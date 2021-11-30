@@ -10,35 +10,32 @@ import util.UserInput;
 //사용자가 물품 추가를 선택하면 물품의 유통기한 여부나 자동구매 여부에 따라 물품종류를 나눠줌
 public class DbAdd{
     UserInput userInput = new UserInput();
-    DbAddInterface dbaddInt = new DbAddInterface();
-    String usersel;
+    DbAddInterface dbAddInt = new DbAddInterface();
+    String userSel;
     int selInt;
 
     //물품종류를 조건에 맞춰서 나눠주는 메소드
     public void add(){
         //여기 I/O 적용해야함
         System.out.println("\n <물건 추가 기능에 들어오셨습니다.> \n");
-        usersel = userInput.integer("물건이 유통기한이 있나요? (Yes = 1, No = 2 입력) :");
-        if (usersel.equals("1")) {
+        userSel = userInput.integer("물건이 유통기한이 있나요? (Yes = 1, No = 2 입력) :");
+        if (userSel.equals("1"))
             selInt = 1;
-        }
-        else {
+        else
             selInt = 2;
-        }
 
-        usersel = userInput.integer("자동구매를 설정할 물건인가요? (Yes = 1, No = 2 입력) :");
-        if (usersel.equals("1")) {
+        userSel = userInput.integer("자동구매를 설정할 물건인가요? (Yes = 1, No = 2 입력) :");
+        if (userSel.equals("1"))
             selInt += 10;
-        }
-        else {
+        else
             selInt += 20;
-        }
+
 
         switch (selInt) {
-            case 11 -> dbaddInt.autoEatGoodsAdd();
-            case 12 -> dbaddInt.autoNotEatGoodsAdd();
-            case 21 -> dbaddInt.eatGoodsAdd();
-            case 22 -> dbaddInt.notEatGoodsAdd();
+            case 11 -> dbAddInt.autoEatGoodsAdd();
+            case 12 -> dbAddInt.autoNotEatGoodsAdd();
+            case 21 -> dbAddInt.eatGoodsAdd();
+            case 22 -> dbAddInt.notEatGoodsAdd();
             default -> {
                 System.out.println("error");
                 add();
@@ -87,7 +84,7 @@ class DbAddInterface {
 
         eatGoodsArray.add(eatGoodsInfo); //식료품의 정보를 받는 JSONArray에 식료품 속성들의 정보가 모두 담긴 오브젝트를 삽입
         mainDbObject.put("eatGoods", eatGoodsArray); // 물품 전체 db에 추가된 식료품 JSONArray를 넣음
-        dbInstance.putdb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
+        Db.putdb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
 
         System.out.println(eatGoodsInfo); // test
 
@@ -95,7 +92,7 @@ class DbAddInterface {
     //비식료품 추가 메소드
     public void notEatGoodsAdd()  {
         Db dbInstance = Db.getInstance(); //db인스턴스의 주소를 가져옴
-        JSONObject mainDbObject = dbInstance.getdb(); //물품 전체 db를 JSONObject로 가져옴
+        JSONObject mainDbObject = Db.getdb(); //물품 전체 db를 JSONObject로 가져옴
         JSONArray notEatGoodsArray = (JSONArray) mainDbObject.get("notEatGoods"); //비식료품들의 JSONObject정보들을 담을 JSONArray 선언
         JSONObject notEatGoodsInfo = new JSONObject(); // 비식료품 속성들의 정보가 들어갈 JSONObject 선언
 
@@ -110,13 +107,13 @@ class DbAddInterface {
 
         notEatGoodsArray.add(notEatGoodsArray);//비식료품의 정보를 받는 배열에 식료품 하나의 정보가 모두 담긴 오브젝트를 삽입
         mainDbObject.put("notEatGoods", notEatGoodsArray); // 물품 전체 db에 추가된 비식료품 JSONArray를 넣음
-        dbInstance.putdb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
+        Db.putdb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
 
     }
     //자동구매를 설정한 식료품 추가 메소드
     public void autoEatGoodsAdd() {
         Db dbInstance = Db.getInstance();
-        JSONObject mainDbObject = dbInstance.getdb();
+        JSONObject mainDbObject = Db.getdb();
         JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods");
         JSONObject autoEatGoodsInfo = new JSONObject();
 
@@ -135,13 +132,13 @@ class DbAddInterface {
 
         autoEatGoodsArray.add(autoEatGoodsInfo);
         mainDbObject.put("autoEatGoods", autoEatGoodsArray);
-        dbInstance.putdb(mainDbObject);
+        Db.putdb(mainDbObject);
 
     }
     //자동구매를 설정한 비식료품 추가 메소드
     public void autoNotEatGoodsAdd() {
         Db dbInstance = Db.getInstance();
-        JSONObject mainDbObject = dbInstance.getdb();
+        JSONObject mainDbObject = Db.getdb();
         JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
         JSONObject autoNotEatGoodsInfo = new JSONObject();
 
@@ -157,7 +154,7 @@ class DbAddInterface {
 
         autoNotEatGoodsArray.add(autoNotEatGoodsInfo);
         mainDbObject.put("autoNotEatGoods", autoNotEatGoodsArray);
-        dbInstance.putdb(mainDbObject);
+        Db.putdb(mainDbObject);
     }
 }
 
@@ -172,13 +169,15 @@ class Property{
 abstract class PropertyAdd extends Property{
     abstract String add();
 }
+
 //Property클래스를 상속해서 문자열을 반환하는 추상메소드 add를 구현한 추상클래스
 abstract class StrPropertyAdd extends Property{
     abstract String add(String sel);
 }
+
 //물품들의 코드는 겹치면 안되기 떄문에 싱글톤 패턴으로 코드추가 하위클래스를 구현(싱글톤 패턴)
 class CodeProperty extends StrPropertyAdd{
-    private static CodeProperty cpaInstance = new CodeProperty();
+    private static final CodeProperty cpaInstance = new CodeProperty();
     //물품의 종류마다 다르게 저장될 코드들의 정수 저장값들
     private static int eatGoodsCode = 1;
     private static int notEatGoodsCode = 1;
@@ -189,26 +188,30 @@ class CodeProperty extends StrPropertyAdd{
     //물품의 종류마다 앞의 로마자가 달라지고 발급순서대로 정수가 1씩 늘어나도록 코드를 발급해주는 메소드
     @Override
     public String add(String sel){
-        switch(sel) {
-            case "A":
+        switch (sel) {
+            case "A" -> {
                 out = "A" + eatGoodsCode;
                 eatGoodsCode += 1;
                 return out;
-            case "B":
+            }
+            case "B" -> {
                 out = "B" + notEatGoodsCode;
                 notEatGoodsCode += 1;
                 return out;
-            case "c":
+            }
+            case "c" -> {
                 out = "C" + autoEatGoodsCode;
                 autoEatGoodsCode += 1;
                 return out;
-            case "D":
+            }
+            case "D" -> {
                 out = "D" + autoNotEatGoodsCode;
                 autoNotEatGoodsCode += 1;
                 return out;
-            default :
-                out = "error";
-                return out;
+            }
+            default -> {
+                return out = "error";
+            }
         }
     }
     //클래스의 인스턴스 주소값을 넘겨주는 메소드
@@ -232,13 +235,9 @@ class QtyProperty extends PropertyAdd{
     @Override
     public String add(){
         out = userInput.integer("물건의 수량은 몇개인가요? :");
-        if (out == "error"){
+        if (out.equals("error"))
             add();
-            return out;
-        }
-        else {
-            return out;
-        }
+        return out;
     }
 }
 //물건의 추가날짜 속성값을 추가하는 하위클래스
@@ -260,50 +259,39 @@ class AddDateProperty extends StrPropertyAdd{
                 out = Integer.toString(d);
                 return out;
             default:
-                out = "error";
-                return out;
+                return out = "error";
         }
     }
 }
+
 //물건의 유통기한 속성값을 추가하는 하위클래스
 class ExpDateProperty extends StrPropertyAdd{
+
     int check;
     @Override
     public String add(String sel){
-        switch(sel){
-            case "Y":
+        switch (sel) {
+            case "Y" -> {
                 out = userInput.year("물건의 유통기한은 몇년까지인가요? :");
-                if (out == "error"){
+                if (out.equals("error"))
                     add("Y");
-                    return out;
-                }
-                else {
-                    return out;
-                }
-
-            case "M":
-                out = userInput.month("물건의 유통기한은 몇월까지인가요? :");
-                if (out == "error"){
-                    add("M");
-                    return out;
-                }
-                else {
-                    return out;
-                }
-
-            case "D":
-                out = userInput.day("물건의 유통기한은 몇일까지인가요? :");
-                if (out == "error"){
-                    add("D");
-                    return out;
-                }
-                else {
-                    return out;
-                }
-
-            default:
-                out = "error";
                 return out;
+            }
+            case "M" -> {
+                out = userInput.month("물건의 유통기한은 몇월까지인가요? :");
+                if (out.equals("error"))
+                    add("M");
+                return out;
+            }
+            case "D" -> {
+                out = userInput.day("물건의 유통기한은 몇일까지인가요? :");
+                if (out.equals("error"))
+                    add("D");
+                return out;
+            }
+            default -> {
+                return out = "error";
+            }
         }
     }
 }
@@ -313,12 +301,9 @@ class AutoBuyProperty extends PropertyAdd{
     public String add(){
 
         out = userInput.integer("물건이 다 떨어지면 몇개씩 자동구매 할까요? :");
-        if (out == "error"){
+        if (out.equals("error")){
             add();
-            return out;
         }
-        else {
-            return out;
-        }
+        return out;
     }
 }
