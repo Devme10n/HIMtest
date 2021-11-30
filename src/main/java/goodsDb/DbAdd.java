@@ -163,7 +163,7 @@ class DbAddInterface {
 //하위 클래스들의 상속에서 가장 상위에 있는 클래스. 사용자에게 입력을 받는 userInput인스턴스를 생성하고 출력용 문자열 out을 선언
 class Property{
     UserInput userInput = new UserInput();
-    String out;
+    static String out;
 }
 //Property클래스를 상속해서 반환타입이 없는 추상메소드 add를 구현한 추상클래스
 abstract class PropertyAdd extends Property{
