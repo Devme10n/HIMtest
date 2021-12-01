@@ -217,10 +217,10 @@ class TwoCheck extends CheckDecorator {
     @Override
     public String check() {
         userInput = super.check();
-        userInput = checktwo(userInput);
+        userInput = checkTwo(userInput);
         return userInput;
     }
-    private String checktwo(String checkString) {
+    private String checkTwo(String checkString) {
         userInput = checkString;
         if(Objects.equals(userInput, "error")){ return userInput; }
         if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 2){
@@ -240,10 +240,10 @@ class FourCheck extends CheckDecorator {
     @Override
     public String check() {
         userInput = super.check();
-        userInput = checkfour(userInput);
+        userInput = checkFour(userInput);
         return userInput;
     }
-    private String checkfour(String checkString) {
+    private String checkFour(String checkString) {
         userInput = checkString;
         if(Objects.equals(userInput, "error")){ return userInput; }
         if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 2){
