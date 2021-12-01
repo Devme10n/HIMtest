@@ -10,6 +10,8 @@ import User.UserDateSet;
 import User.test2;
 import GoodsDb.DbPrint.DbPrinter;
 
+import Util.UserInput;
+
 import com.google.gson.Gson;
 import org.json.simple.JSONObject;
 
@@ -34,6 +36,9 @@ public class Main {
 
 
         Gson gson = new Gson();
+
+        UserInput ee = new UserInput();
+
 
         String asdf = input( "name에 넣을 값은? :");
         System.out.println("asdf");

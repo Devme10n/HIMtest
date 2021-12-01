@@ -10,34 +10,55 @@ public class UserInput {
 
     //사용자가 입력한 값을 예외처리를 안하고 그대로 반환하는 메소드
     public String simple(String print){
-        Check simpleDraw = new UserWrite(print);
-        returnString = simpleDraw.draw();
+        Check simpleCheck = new UserWrite(print);
+        returnString = simpleCheck.check();
         return returnString;
     }
 
     //사용자가 입력한 값을 정수인지 확인하고 년도값이 올바른지 확인한 후 반환하는 메소드
     public String year(String print){
-        Check yearDraw = new YearCheck(new IntCheck(new UserWrite(print)));
-        returnString = yearDraw.draw();
+        Check yearCheck = new YearCheck(new IntCheck(new UserWrite(print)));
+        returnString = yearCheck.check();
+        if (returnString == "error")
+            year(print);
         return returnString;
     }
     //사용자가 입력한 값을 정수인지 확인하고 월값이 올바른지 확인한 후 반환하는 메소드
     public String month(String print){
-        Check monthDraw = new MonthCheck(new IntCheck(new UserWrite(print)));
-        returnString = monthDraw.draw();
+        Check monthCheck = new MonthCheck(new IntCheck(new UserWrite(print)));
+        returnString = monthCheck.check();
+        if (returnString == "error")
+            month(print);
         return returnString;
     }
     //사용자가 입력한 값을 정수인지 확인하고 일값이 올바른지 확인한 후 반환하는 메소드
     public String day(String print){
-        Check dayDraw = new DayCheck(new IntCheck(new UserWrite(print)));
-        returnString = dayDraw.draw();
+        Check dayCheck = new DayCheck(new IntCheck(new UserWrite(print)));
+        returnString = dayCheck.check();
+        if (returnString == "error")
+            day(print);
         return returnString;
     }
     //사용자가 입력한 값을 정수인지만 확인하고 반환하는 메소드
     public String integer(String print){
-        System.out.println("유저인풋 진입");
         Check intDraw = new IntCheck(new UserWrite(print));
-        returnString = intDraw.draw();
+        returnString = intDraw.check();
+        if (returnString == "error")
+            integer(print);
+        return returnString;
+    }
+    public String selTwo(String print){
+        Check twoCheck = new twoCheck(new IntCheck(new UserWrite(print)));
+        returnString = twoCheck.check();
+        if (returnString == "error")
+            selTwo(print);
+        return returnString;
+    }
+    public String selFour(String print){
+        Check fourCheck = new fourCheck(new IntCheck(new UserWrite(print)));
+        returnString = fourCheck.check();
+        if (returnString == "error")
+            selFour(print);
         return returnString;
     }
 
@@ -47,7 +68,7 @@ public class UserInput {
 //클래스의 상속에서 가장 상위에 있는 클래스. 문자열 변수를 먼저 선언하고 draw 추상메소드를 구현함
 abstract class Check {
     String userInput;
-    public abstract String draw();
+    public abstract String check();
 }
 
 //사용자에게 입력값을 받는 클래스
@@ -59,7 +80,7 @@ class UserWrite extends Check {
         outString = out;
     }
     @Override
-    public String draw() {
+    public String check() {
         System.out.print(outString);
         userInput = sc.next();
         return userInput;
@@ -76,8 +97,8 @@ abstract class CheckDecorator extends Check {
     }
 
     @Override
-    public String draw() {
-        userInput = DECORATED_CHECK.draw();
+    public String check() {
+        userInput = DECORATED_CHECK.check();
         return userInput;
     }
 }
@@ -88,12 +109,12 @@ class IntCheck extends CheckDecorator {
         super(checkedDisplay);
     }
     @Override
-    public String draw() {
-        userInput = super.draw();
-        userInput = drawInt(userInput);
+    public String check() {
+        userInput = super.check();
+        userInput = checkInt(userInput);
         return userInput;
     }
-    private String drawInt(String checkString) {
+    private String checkInt(String checkString) {
         userInput = checkString;
         intBoolean = userInput.matches("-?\\d+");
         if (!intBoolean) {
@@ -119,14 +140,16 @@ class YearCheck extends CheckDecorator {
         super(checkedDisplay);
     }
     @Override
-    public String draw() {
-        userInput = super.draw();
-        userInput = drawYear(userInput);
+    public String check() {
+        userInput = super.check();
+        userInput = checkYear(userInput);
         return userInput;
     }
-    private String drawYear(String checkString) {
+    private String checkYear(String checkString) {
         userInput = checkString;
-        if(Objects.equals(userInput, "error")){ return userInput; }
+        if(Objects.equals(userInput, "error")){
+            return userInput;
+        }
         if (Integer.parseInt(userInput) >= 2000 && Integer.parseInt(userInput) <= 2100){
             return userInput;
         }
@@ -144,14 +167,14 @@ class MonthCheck extends CheckDecorator {
         super(checkedDisplay);
     }
     @Override
-    public String draw() {
-        userInput = super.draw();
-        userInput = drawMonth(userInput);
+    public String check() {
+        userInput = super.check();
+        userInput = checkMonth(userInput);
         return userInput;
     }
-    private String drawMonth(String checkString) {
+    private String checkMonth(String checkString) {
         userInput = checkString;
-        if(Objects.equals(userInput, "error")){ return userInput; }
+        if(Objects.equals(userInput, "error")){ return userInput; } //리턴 유저인풋
         if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 12){
             return userInput;
         }
@@ -169,12 +192,12 @@ class DayCheck extends CheckDecorator {
         super(checkedDisplay);
     }
     @Override
-    public String draw() {
-        userInput = super.draw();
-        userInput = drawDay(userInput);
+    public String check() {
+        userInput = super.check();
+        userInput = checkDay(userInput);
         return userInput;
     }
-    private String drawDay(String checkString) {
+    private String checkDay(String checkString) {
         userInput = checkString;
         if(Objects.equals(userInput, "error")){ return userInput; }
         if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 31){
@@ -183,6 +206,52 @@ class DayCheck extends CheckDecorator {
         else {
             userInput = "error";
             System.out.println("\n error.1에서 31사이의 정수를 입력해주세요.");
+            return userInput;
+        }
+    }
+}
+class twoCheck extends CheckDecorator {
+    public twoCheck(Check checkedDisplay) {
+        super(checkedDisplay);
+    }
+    @Override
+    public String check() {
+        userInput = super.check();
+        userInput = checktwo(userInput);
+        return userInput;
+    }
+    private String checktwo(String checkString) {
+        userInput = checkString;
+        if(Objects.equals(userInput, "error")){ return userInput; }
+        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 2){
+            return userInput;
+        }
+        else {
+            userInput = "error";
+            System.out.println("\n error.1에서 2사이의 정수를 입력해주세요.");
+            return userInput;
+        }
+    }
+}
+class fourCheck extends CheckDecorator {
+    public fourCheck(Check checkedDisplay) {
+        super(checkedDisplay);
+    }
+    @Override
+    public String check() {
+        userInput = super.check();
+        userInput = checkfour(userInput);
+        return userInput;
+    }
+    private String checkfour(String checkString) {
+        userInput = checkString;
+        if(Objects.equals(userInput, "error")){ return userInput; }
+        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 2){
+            return userInput;
+        }
+        else {
+            userInput = "error";
+            System.out.println("\n error.1에서 2사이의 정수를 입력해주세요.");
             return userInput;
         }
     }

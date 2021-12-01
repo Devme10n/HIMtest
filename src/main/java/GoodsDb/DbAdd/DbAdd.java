@@ -13,21 +13,21 @@ import GoodsDb.DbAdd.DbAddUnderClass.*;
 public class DbAdd{
     UserInput userInput = new UserInput();
     DbAddInterface dbAddInt = new DbAddInterface();
-    String userSel;
+    String userSell;
     int selInt;
 
     //물품종류를 조건에 맞춰서 나눠주는 메소드
     public void add(){
         //여기 I/O 적용해야함
         System.out.println("\n <물건 추가 기능에 들어오셨습니다.> \n");
-        userSel = userInput.integer("물건이 유통기한이 있나요? (Yes = 1, No = 2 입력) :");
-        if (userSel.equals("1"))
+        userSell = userInput.selTwo("물건이 유통기한이 있나요? (Yes = 1, No = 2 입력) :");
+        if (userSell.equals("1"))
             selInt = 1;
         else
             selInt = 2;
 
-        userSel = userInput.integer("자동구매를 설정할 물건인가요? (Yes = 1, No = 2 입력) :");
-        if (userSel.equals("1"))
+        userSell = userInput.selTwo("자동구매를 설정할 물건인가요? (Yes = 1, No = 2 입력) :");
+        if (userSell.equals("1"))
             selInt += 10;
         else
             selInt += 20;

@@ -9,9 +9,11 @@ public class DbPrinter {
     public void eatGoodsPrint(){
         JSONObject mainDbObject = Db.getdb();
         JSONArray eatGoodsArray = (JSONArray) mainDbObject.get("eatGoods");
-        System.out.println("\n ==========식료품==========");
+        System.out.println("\n\n ==========식료품==========");
+        if (eatGoodsArray.size() == 0)
+            System.out.println("식료품 없음");
         for(int i=0; i<eatGoodsArray.size(); i++) {
-            System.out.println("\n ==="+i+1+" 번 물품");
+            System.out.println("\n ===>"+(i+1)+"번 물품");
             JSONObject eatGoodsObject = (JSONObject) eatGoodsArray.get(i); //배열에서 추출
             Printer eatGoodsPrinter = new ExpPrinter(new BasicPrinter(eatGoodsObject));
             eatGoodsPrinter.print();
@@ -21,11 +23,13 @@ public class DbPrinter {
     public void notEatGoodsPrint(){
         JSONObject mainDbObject = Db.getdb();
         JSONArray notEatGoodsArray = (JSONArray) mainDbObject.get("notEatGoods");
-        System.out.println("\n ==========비식료품==========");
+        System.out.println("\n\n ==========비식료품==========");
+        if (notEatGoodsArray.size() == 0)
+            System.out.println("비식료품 없음");
         for(int i=0; i<notEatGoodsArray.size(); i++) {
-            System.out.println("\n ==="+i+1+" 번 물품");
+            System.out.println("\n ===>"+(i+1)+"번 물품");
             JSONObject notEatGoodsObject = (JSONObject) notEatGoodsArray.get(i); //배열에서 추출
-            Printer notEatGoodsPrinter = new ExpPrinter(new BasicPrinter(notEatGoodsObject));
+            Printer notEatGoodsPrinter = new BasicPrinter(notEatGoodsObject);
             notEatGoodsPrinter.print();
         }
 
@@ -33,22 +37,26 @@ public class DbPrinter {
     public void autoEatGoodsPrint(){
         JSONObject mainDbObject = Db.getdb();
         JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods");
-        System.out.println("\n ==========자동구매 식료품==========");
+        System.out.println("\n\n ==========자동구매 식료품==========");
+        if (autoEatGoodsArray.size() == 0)
+            System.out.println("자동구매 식료품 없음");
         for(int i=0; i<autoEatGoodsArray.size(); i++) {
-            System.out.println("\n ==="+i+1+" 번 물품");
+            System.out.println("\n ===>"+(i+1)+"번 물품");
             JSONObject autoEatGoodsObject = (JSONObject) autoEatGoodsArray.get(i); //배열에서 추출
-            Printer autoEatGoodsPrinter = new ExpPrinter(new BasicPrinter(autoEatGoodsObject));
+            Printer autoEatGoodsPrinter = new AutoBuyPrinter(new ExpPrinter(new BasicPrinter(autoEatGoodsObject)));
             autoEatGoodsPrinter.print();
         }
     }
     public void autoNotEatGoodsPrint(){
         JSONObject mainDbObject = Db.getdb();
         JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
-        System.out.println("\n ==========자동구매 비식료품==========");
+        System.out.println("\n\n ==========자동구매 비식료품==========");
+        if (autoNotEatGoodsArray.size() == 0)
+            System.out.println("자동구매 비식료품 없음");
         for(int i=0; i<autoNotEatGoodsArray.size(); i++) {
-            System.out.println("\n ==="+i+1+" 번 물품");
+            System.out.println("\n ===>"+(i+1)+"번 물품");
             JSONObject autoNotEatGoodsObject = (JSONObject) autoNotEatGoodsArray.get(i); //배열에서 추출
-            Printer autoNotEatGoodsPrinter = new ExpPrinter(new BasicPrinter(autoNotEatGoodsObject));
+            Printer autoNotEatGoodsPrinter = new AutoBuyPrinter(new BasicPrinter(autoNotEatGoodsObject));
             autoNotEatGoodsPrinter.print();
         }
     }
@@ -81,7 +89,7 @@ class BasicPrinter extends Printer { //기본적인 것들 프린트
         System.out.print("코드 = "+obj.get("code"));
         System.out.print(" // 이름 = "+obj.get("name"));
         System.out.print(" // 수량 = "+obj.get("quantity"));
-        System.out.print(" // 추가일 = "+obj.get("addYear")+"년"+obj.get("addMonth")+"월"+obj.get("addDay")+"일");
+        System.out.print(" // 추가일 = "+obj.get("addYear")+"년 "+obj.get("addMonth")+"월 "+obj.get("addDay")+"일");
         return obj;
     }
 }
