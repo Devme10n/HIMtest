@@ -1,6 +1,8 @@
-package goodsDb;
+package goodsDb.DbAdd;
 //추가 라이브러리 불러옴
 import java.time.LocalDate;
+
+import goodsDb.Db;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 

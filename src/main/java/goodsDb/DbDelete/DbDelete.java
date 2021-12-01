@@ -1,4 +1,4 @@
-package goodsDb;
+package goodsDb.DbDelete;
 
 public class DbDelete {
 }

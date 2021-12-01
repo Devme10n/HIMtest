@@ -3,9 +3,7 @@ package main;
 import java.util.*;
 
 import goodsDb.Db;
-import goodsDb.DbAdd;
-import util.UserInput;
-import goodsDb.*;
+import goodsDb.DbAdd.DbAdd;
 import user.Login;
 import user.Register;
 import user.UserDateSet;
