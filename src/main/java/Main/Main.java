@@ -8,6 +8,7 @@ import User.Login;
 import User.Register;
 import User.UserDateSet;
 import User.test2;
+import GoodsDb.DbPrint.DbPrinter;
 
 import com.google.gson.Gson;
 import org.json.simple.JSONObject;
@@ -18,7 +19,12 @@ public class Main {
     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
+
+        DbPrinter printertest = new DbPrinter();
+        printertest.eatGoodsPrint();
+
         Calendar date1 = Calendar.getInstance();
+
 
         String s1 = "2016";
         int i1 = Integer.parseInt(s1);
@@ -30,6 +36,7 @@ public class Main {
         Gson gson = new Gson();
 
         String asdf = input( "name에 넣을 값은? :");
+        System.out.println("asdf");
 
         JSONObject jsonObjectt = new JSONObject();
         jsonObjectt.put("name", asdf);
@@ -49,6 +56,11 @@ public class Main {
         DbAdd add = new DbAdd();
 
         add.add();
+        printertest.allGoodsPrint();
+        add.add();
+        printertest.allGoodsPrint();
+        add.add();
+        printertest.allGoodsPrint();
 
 
         UserDateSet.userListSet();

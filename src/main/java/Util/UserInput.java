@@ -35,6 +35,7 @@ public class UserInput {
     }
     //사용자가 입력한 값을 정수인지만 확인하고 반환하는 메소드
     public String integer(String print){
+        System.out.println("유저인풋 진입");
         Check intDraw = new IntCheck(new UserWrite(print));
         returnString = intDraw.draw();
         return returnString;
@@ -53,7 +54,6 @@ abstract class Check {
 class UserWrite extends Check {
     Scanner sc = new Scanner(System.in);
     String outString;
-    String returnString;
 
     public UserWrite(String out){
         outString = out;
@@ -61,8 +61,8 @@ class UserWrite extends Check {
     @Override
     public String draw() {
         System.out.print(outString);
-        returnString = sc.next();
-        return returnString;
+        userInput = sc.next();
+        return userInput;
     }
 }
 

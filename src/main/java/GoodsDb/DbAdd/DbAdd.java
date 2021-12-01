@@ -9,7 +9,7 @@ import org.json.simple.JSONArray;
 import Util.UserInput;
 import GoodsDb.DbAdd.DbAddUnderClass.*;
 
-//사용자가 물품 추가를 선택하면 물품의 유통기한 여부나 자동구매 여부에 따라 물품종류를 나눠줌
+//사용자가 물품 추가를 선택하면 물품의 유통기한 여부나 자동구매 여부에 따라 물품종류를 나눠주는 클래스
 public class DbAdd{
     UserInput userInput = new UserInput();
     DbAddInterface dbAddInt = new DbAddInterface();
@@ -67,7 +67,7 @@ class DbAddInterface {
 
         System.out.println("\n <식료품의 추가를 선택하셨습니다.> \n");
 
-        eatGoodsInfo = BASIC_ADD.add();
+        eatGoodsInfo = BASIC_ADD.add("A");
         eatGoodsInfo.put("expYear",EXP_DATE.add("Y"));
         eatGoodsInfo.put("expMonth",EXP_DATE.add("M"));
         eatGoodsInfo.put("expDay",EXP_DATE.add("D"));
@@ -87,7 +87,7 @@ class DbAddInterface {
 
         System.out.println("\n <비식료품의 추가를 선택하셨습니다.> \n");
 
-        notEatGoodsInfo = BASIC_ADD.add();
+        notEatGoodsInfo = BASIC_ADD.add("B");
 
         notEatGoodsArray.add(notEatGoodsInfo);//비식료품의 정보를 받는 배열에 식료품 하나의 정보가 모두 담긴 오브젝트를 삽입
         mainDbObject.put("notEatGoods", notEatGoodsArray); // 물품 전체 db에 추가된 비식료품 JSONArray를 넣음
@@ -102,11 +102,11 @@ class DbAddInterface {
 
         System.out.println("\n <자동구매 식료품의 추가를 선택하셨습니다.> \n");
 
-        autoEatGoodsInfo = BASIC_ADD.add();
+        autoEatGoodsInfo = BASIC_ADD.add("C");
         autoEatGoodsInfo.put("expYear",EXP_DATE.add("Y"));
         autoEatGoodsInfo.put("expMonth",EXP_DATE.add("M"));
         autoEatGoodsInfo.put("expDay",EXP_DATE.add("D"));
-        autoEatGoodsInfo.put("AUTO_BUY", AUTO_BUY.add());
+        autoEatGoodsInfo.put("autoBuy", AUTO_BUY.add());
 
         autoEatGoodsArray.add(autoEatGoodsInfo);
         mainDbObject.put("autoEatGoods", autoEatGoodsArray);
@@ -121,15 +121,15 @@ class DbAddInterface {
 
         System.out.println("\n <자동구매 비식료품의 추가를 선택하셨습니다.> \n");
 
-        autoNotEatGoodsInfo = BASIC_ADD.add();
-        autoNotEatGoodsInfo.put("AUTO_BUY", AUTO_BUY.add());
+        autoNotEatGoodsInfo = BASIC_ADD.add("D");
+        autoNotEatGoodsInfo.put("autoBuy", AUTO_BUY.add());
 
         autoNotEatGoodsArray.add(autoNotEatGoodsInfo);
         mainDbObject.put("autoNotEatGoods", autoNotEatGoodsArray);
         Db.putdb(mainDbObject);
     }
 }
-
+//식료품, 비식료품, 자동구매 식료품, 자동구매 비식료품들이 기본적으로 가지고 있는 겹치는 속성들을 하나로 묶어주는 클래스
 class BasicAdd {
     private final CodeProperty CODE;
     private final NameProperty NAME;
@@ -143,9 +143,9 @@ class BasicAdd {
         ADD_DATE = new AddDateProperty();
     }
 
-    JSONObject add(){
+    JSONObject add(String code){
         JSONObject goodsInfo = new JSONObject();
-        goodsInfo.put("code", CODE.add("D"));
+        goodsInfo.put("code", CODE.add(code));
         goodsInfo.put("name", NAME.add());
         goodsInfo.put("quantity",QTY.add());
         goodsInfo.put("addYear",ADD_DATE.add("Y"));
