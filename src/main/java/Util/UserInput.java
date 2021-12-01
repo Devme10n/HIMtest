@@ -1,4 +1,4 @@
-package util;
+package Util;
 //추가 라이브러리 불러옴
 import java.util.Objects;
 import java.util.Scanner;

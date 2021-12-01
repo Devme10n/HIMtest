@@ -1,4 +1,4 @@
-package goodsDb.DbUse;
+package GoodsDb.DbUse;
 
 public class DbUse {
 }

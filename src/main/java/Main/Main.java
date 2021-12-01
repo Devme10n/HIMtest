@@ -1,13 +1,13 @@
-package main;
+package Main;
 
 import java.util.*;
 
-import goodsDb.Db;
-import goodsDb.DbAdd.DbAdd;
-import user.Login;
-import user.Register;
-import user.UserDateSet;
-import user.test2;
+import GoodsDb.Db;
+import GoodsDb.DbAdd.DbAdd;
+import User.Login;
+import User.Register;
+import User.UserDateSet;
+import User.test2;
 
 import com.google.gson.Gson;
 import org.json.simple.JSONObject;

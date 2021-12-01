@@ -1,4 +1,4 @@
-package goodsDb;
+package GoodsDb;
 //추가 라이브러리 불러옴
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;

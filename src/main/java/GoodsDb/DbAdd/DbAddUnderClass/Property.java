@@ -1,6 +1,6 @@
-package goodsDb.DbAdd.DbAddUnderClass;
+package GoodsDb.DbAdd.DbAddUnderClass;
 
-import util.UserInput;
+import Util.UserInput;
 
 public class Property {
     UserInput userInput = new UserInput();

@@ -1,8 +1,7 @@
-package user;
+package User;
 
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
-import com.google.gson.Gson;
 
 public class test2 {
     public static void test22(){

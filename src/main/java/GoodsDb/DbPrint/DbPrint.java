@@ -1,4 +1,4 @@
-package goodsDb.DbPrint;
+package GoodsDb.DbPrint;
 
 public class DbPrint {
 }

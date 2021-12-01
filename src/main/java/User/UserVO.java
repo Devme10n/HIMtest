@@ -1,4 +1,4 @@
-package user;
+package User;
 
 public class UserVO { // 우선 간단하게 id password만 담도록 했다.
     private String id;

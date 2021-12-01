@@ -1,13 +1,13 @@
-package goodsDb.DbAdd;
+package GoodsDb.DbAdd;
 //추가 라이브러리 불러옴
-import java.time.LocalDate;
 
-import goodsDb.Db;
+import GoodsDb.Db;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONArray;
 
 //다른 패키지의 클래스들 불러옴
-import util.UserInput;
+import Util.UserInput;
+import GoodsDb.DbAdd.DbAddUnderClass.*;
 
 //사용자가 물품 추가를 선택하면 물품의 유통기한 여부나 자동구매 여부에 따라 물품종류를 나눠줌
 public class DbAdd{
@@ -156,151 +156,6 @@ class DbAddInterface {
     }
 }
 
-//여기부터 하위 클래스들
+class basicAdd {
 
-//하위 클래스들의 상속에서 가장 상위에 있는 클래스. 사용자에게 입력을 받는 userInput인스턴스를 생성하고 출력용 문자열 out을 선언
-class Property{
-    UserInput userInput = new UserInput();
-    static String out;
-}
-//Property클래스를 상속해서 반환타입이 없는 추상메소드 add를 구현한 추상클래스
-abstract class PropertyAdd extends Property{
-    abstract String add();
-}
-
-//Property클래스를 상속해서 문자열을 반환하는 추상메소드 add를 구현한 추상클래스
-abstract class StrPropertyAdd extends Property{
-    abstract String add(String sel);
-}
-
-//물품들의 코드는 겹치면 안되기 떄문에 싱글톤 패턴으로 코드추가 하위클래스를 구현(싱글톤 패턴)
-class CodeProperty extends StrPropertyAdd{
-    private static final CodeProperty cpaInstance = new CodeProperty();
-    //물품의 종류마다 다르게 저장될 코드들의 정수 저장값들
-    private static int eatGoodsCode = 1;
-    private static int notEatGoodsCode = 1;
-    private static int autoEatGoodsCode = 1;
-    private static int autoNotEatGoodsCode = 1;
-
-    private CodeProperty(){}
-    //물품의 종류마다 앞의 로마자가 달라지고 발급순서대로 정수가 1씩 늘어나도록 코드를 발급해주는 메소드
-    @Override
-    public String add(String sel){
-        switch (sel) {
-            case "A" -> {
-                out = "A" + eatGoodsCode;
-                eatGoodsCode += 1;
-                return out;
-            }
-            case "B" -> {
-                out = "B" + notEatGoodsCode;
-                notEatGoodsCode += 1;
-                return out;
-            }
-            case "C" -> {
-                out = "C" + autoEatGoodsCode;
-                autoEatGoodsCode += 1;
-                return out;
-            }
-            case "D" -> {
-                out = "D" + autoNotEatGoodsCode;
-                autoNotEatGoodsCode += 1;
-                return out;
-            }
-            default -> {
-                return out = "error";
-            }
-        }
-    }
-    //클래스의 인스턴스 주소값을 넘겨주는 메소드
-    public static CodeProperty getInstance(){
-        return cpaInstance;
-    }
-
-}
-
-//물건의 이름 속성값을 추가하는 하위클래스
-class NameProperty extends PropertyAdd{
-    @Override
-    public String add(){
-        out = userInput.simple("물건의 이름은 무엇인가요? :");
-        return out;
-    }
-
-}
-//물건의 개수 속성값을 추가하는 하위클래스
-class QtyProperty extends PropertyAdd{
-    @Override
-    public String add(){
-        out = userInput.integer("물건의 수량은 몇개인가요? :");
-        if (out.equals("error"))
-            add();
-        return out;
-    }
-}
-//물건의 추가날짜 속성값을 추가하는 하위클래스
-class AddDateProperty extends StrPropertyAdd{
-    LocalDate now = LocalDate.now(); //오늘날짜 받아오는거
-    @Override
-    public String add(String sel){
-        switch(sel){
-            case "Y":
-                int y = now.getYear();
-                out = Integer.toString(y);
-                return out;
-            case "M":
-                int m = now.getMonthValue();
-                out = Integer.toString(m);
-                return out;
-            case "D":
-                int d = now.getDayOfMonth();
-                out = Integer.toString(d);
-                return out;
-            default:
-                return out = "error";
-        }
-    }
-}
-
-//물건의 유통기한 속성값을 추가하는 하위클래스
-class ExpDateProperty extends StrPropertyAdd{
-
-    @Override
-    public String add(String sel){
-        switch (sel) {
-            case "Y" -> {
-                out = userInput.year("물건의 유통기한은 몇년까지인가요? :");
-                if (out.equals("error"))
-                    add("Y");
-                return out;
-            }
-            case "M" -> {
-                out = userInput.month("물건의 유통기한은 몇월까지인가요? :");
-                if (out.equals("error"))
-                    add("M");
-                return out;
-            }
-            case "D" -> {
-                out = userInput.day("물건의 유통기한은 몇일까지인가요? :");
-                if (out.equals("error"))
-                    add("D");
-                return out;
-            }
-            default -> {
-                return out = "error";
-            }
-        }
-    }
-}
-//물건의 자동구매 개수값을 추가하는 하위클래스
-class AutoBuyProperty extends PropertyAdd{
-    @Override
-    public String add(){
-
-        out = userInput.integer("물건이 다 떨어지면 몇개씩 자동구매 할까요? :");
-        if (out.equals("error")){
-            add();
-        }
-        return out;
-    }
 }

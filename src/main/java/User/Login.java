@@ -1,6 +1,6 @@
-package user;
+package User;
 
-import main.Main;
+import Main.Main;
 
 public class Login {
 
