@@ -48,14 +48,14 @@ public class UserInput {
         return returnString;
     }
     public String selTwo(String print){
-        Check twoCheck = new twoCheck(new IntCheck(new UserWrite(print)));
+        Check twoCheck = new TwoCheck(new IntCheck(new UserWrite(print)));
         returnString = twoCheck.check();
         if (returnString == "error")
             selTwo(print);
         return returnString;
     }
     public String selFour(String print){
-        Check fourCheck = new fourCheck(new IntCheck(new UserWrite(print)));
+        Check fourCheck = new FourCheck(new IntCheck(new UserWrite(print)));
         returnString = fourCheck.check();
         if (returnString == "error")
             selFour(print);
@@ -210,8 +210,8 @@ class DayCheck extends CheckDecorator {
         }
     }
 }
-class twoCheck extends CheckDecorator {
-    public twoCheck(Check checkedDisplay) {
+class TwoCheck extends CheckDecorator {
+    public TwoCheck(Check checkedDisplay) {
         super(checkedDisplay);
     }
     @Override
@@ -233,8 +233,8 @@ class twoCheck extends CheckDecorator {
         }
     }
 }
-class fourCheck extends CheckDecorator {
-    public fourCheck(Check checkedDisplay) {
+class FourCheck extends CheckDecorator {
+    public FourCheck(Check checkedDisplay) {
         super(checkedDisplay);
     }
     @Override
