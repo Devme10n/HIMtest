@@ -5,7 +5,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 //싱글톤패턴을 적용해서 db인스턴스가 한개만 있을 수 있도록 함.
-public class Db {
+public class Db extends Subject {
     private static final Db DB_INSTANCE = new Db();
     private static JSONObject allGoodsDb; //물품의 모든 정보가 저장되어있는 allGoodsDb. 클래스 내부에서만 접근 가능
 
