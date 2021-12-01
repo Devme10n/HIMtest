@@ -49,19 +49,13 @@ public class DbAdd{
 //식료품, 비식료품, 자동식료품, 자동비식료품을 구성요소인 하위 클래스들을 조합한 메소드를 통해 추가해줄 통합인터페이스 클래스(퍼사드 패턴)
 class DbAddInterface {
     //하위 클래스들의 주소값을 저장할 상수들을 선언
-    private final CodeProperty CODE;
-    private final NameProperty NAME;
-    private final QtyProperty QTY;
-    private final AddDateProperty ADD_DATE;
+    private final BasicAdd BASIC_ADD;
     private final ExpDateProperty EXP_DATE;
     private final AutoBuyProperty AUTO_BUY;
 
     //생성자로 처음 한번 하위 클래스들의 상수에 주소값을 넣어서 초기화를 시켜줌
     public DbAddInterface(){
-        CODE = CodeProperty.getInstance();
-        NAME = new NameProperty();
-        QTY = new QtyProperty();
-        ADD_DATE = new AddDateProperty();
+        BASIC_ADD = new BasicAdd();
         EXP_DATE = new ExpDateProperty();
         AUTO_BUY = new AutoBuyProperty();
     }
@@ -73,12 +67,7 @@ class DbAddInterface {
 
         System.out.println("\n <식료품의 추가를 선택하셨습니다.> \n");
 
-        eatGoodsInfo.put("code", CODE.add("A"));
-        eatGoodsInfo.put("name", NAME.add());
-        eatGoodsInfo.put("quantity",QTY.add());
-        eatGoodsInfo.put("addYear",ADD_DATE.add("Y"));
-        eatGoodsInfo.put("addMonth",ADD_DATE.add("M"));
-        eatGoodsInfo.put("addDay",ADD_DATE.add("D"));
+        eatGoodsInfo = BASIC_ADD.add();
         eatGoodsInfo.put("expYear",EXP_DATE.add("Y"));
         eatGoodsInfo.put("expMonth",EXP_DATE.add("M"));
         eatGoodsInfo.put("expDay",EXP_DATE.add("D"));
@@ -98,12 +87,7 @@ class DbAddInterface {
 
         System.out.println("\n <비식료품의 추가를 선택하셨습니다.> \n");
 
-        notEatGoodsInfo.put("code", CODE.add("B"));
-        notEatGoodsInfo.put("name", NAME.add());
-        notEatGoodsInfo.put("quantity",QTY.add());
-        notEatGoodsInfo.put("addYear",ADD_DATE.add("Y"));
-        notEatGoodsInfo.put("addMonth",ADD_DATE.add("M"));
-        notEatGoodsInfo.put("addDay",ADD_DATE.add("D"));
+        notEatGoodsInfo = BASIC_ADD.add();
 
         notEatGoodsArray.add(notEatGoodsInfo);//비식료품의 정보를 받는 배열에 식료품 하나의 정보가 모두 담긴 오브젝트를 삽입
         mainDbObject.put("notEatGoods", notEatGoodsArray); // 물품 전체 db에 추가된 비식료품 JSONArray를 넣음
@@ -118,12 +102,7 @@ class DbAddInterface {
 
         System.out.println("\n <자동구매 식료품의 추가를 선택하셨습니다.> \n");
 
-        autoEatGoodsInfo.put("code", CODE.add("C"));
-        autoEatGoodsInfo.put("name", NAME.add());
-        autoEatGoodsInfo.put("quantity",QTY.add());
-        autoEatGoodsInfo.put("addYear",ADD_DATE.add("Y"));
-        autoEatGoodsInfo.put("addMonth",ADD_DATE.add("M"));
-        autoEatGoodsInfo.put("addDay",ADD_DATE.add("D"));
+        autoEatGoodsInfo = BASIC_ADD.add();
         autoEatGoodsInfo.put("expYear",EXP_DATE.add("Y"));
         autoEatGoodsInfo.put("expMonth",EXP_DATE.add("M"));
         autoEatGoodsInfo.put("expDay",EXP_DATE.add("D"));
@@ -138,16 +117,11 @@ class DbAddInterface {
     public void autoNotEatGoodsAdd() {
         JSONObject mainDbObject = Db.getdb();
         JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
-        JSONObject autoNotEatGoodsInfo = new JSONObject();
+        JSONObject autoNotEatGoodsInfo;
 
         System.out.println("\n <자동구매 비식료품의 추가를 선택하셨습니다.> \n");
 
-        autoNotEatGoodsInfo.put("code", CODE.add("D"));
-        autoNotEatGoodsInfo.put("name", NAME.add());
-        autoNotEatGoodsInfo.put("quantity",QTY.add());
-        autoNotEatGoodsInfo.put("addYear",ADD_DATE.add("Y"));
-        autoNotEatGoodsInfo.put("addMonth",ADD_DATE.add("M"));
-        autoNotEatGoodsInfo.put("addDay",ADD_DATE.add("D"));
+        autoNotEatGoodsInfo = BASIC_ADD.add();
         autoNotEatGoodsInfo.put("AUTO_BUY", AUTO_BUY.add());
 
         autoNotEatGoodsArray.add(autoNotEatGoodsInfo);
@@ -156,6 +130,28 @@ class DbAddInterface {
     }
 }
 
-class basicAdd {
+class BasicAdd {
+    private final CodeProperty CODE;
+    private final NameProperty NAME;
+    private final QtyProperty QTY;
+    private final AddDateProperty ADD_DATE;
+
+    public BasicAdd(){
+        CODE = CodeProperty.getInstance();
+        NAME = new NameProperty();
+        QTY = new QtyProperty();
+        ADD_DATE = new AddDateProperty();
+    }
+
+    JSONObject add(){
+        JSONObject goodsInfo = new JSONObject();
+        goodsInfo.put("code", CODE.add("D"));
+        goodsInfo.put("name", NAME.add());
+        goodsInfo.put("quantity",QTY.add());
+        goodsInfo.put("addYear",ADD_DATE.add("Y"));
+        goodsInfo.put("addMonth",ADD_DATE.add("M"));
+        goodsInfo.put("addDay",ADD_DATE.add("D"));
+        return goodsInfo;
+    }
 
 }
