@@ -3,20 +3,20 @@ package GoodsDb.DbAdd.DbAddUnderClass;
 import java.time.LocalDate;
 
 public class AddDateProperty extends StrPropertyAdd {
-    LocalDate now = LocalDate.now(); //오늘날짜 받아오는거
+    LocalDate nowdate = LocalDate.now(); //오늘날짜 받아오는거
     @Override
     public String add(String sel){
         switch(sel){
             case "Y":
-                int y = now.getYear();
+                int y = nowdate.getYear();
                 out = Integer.toString(y);
                 return out;
             case "M":
-                int m = now.getMonthValue();
+                int m = nowdate.getMonthValue();
                 out = Integer.toString(m);
                 return out;
             case "D":
-                int d = now.getDayOfMonth();
+                int d = nowdate.getDayOfMonth();
                 out = Integer.toString(d);
                 return out;
             default:

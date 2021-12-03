@@ -17,12 +17,16 @@ public class DbPrint {
         switch (userSel){
             case "1" :
                 dbPrinter.eatGoodsPrint();
+                break;
             case "2" :
                 dbPrinter.notEatGoodsPrint();
+                break;
             case "3" :
                 dbPrinter.autoEatGoodsPrint();
+                break;
             case "4" :
                 dbPrinter.autoNotEatGoodsPrint();
+                break;
         }
         //메인으로 가면됨
 

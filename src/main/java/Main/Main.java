@@ -11,6 +11,7 @@ import User.test2;
 import GoodsDb.DbPrint.DbPrinter;
 import GoodsDb.DbDelete.DbDelete;
 import GoodsDb.DbUse.DbUse;
+import Bot.BotMain;
 
 import Util.UserInput;
 
@@ -59,11 +60,14 @@ public class Main {
 
         test2.test22();
         Db test12 = Db.getInstance();
+        BotMain botMain = new BotMain();
+        botMain.main();
 
         DbAdd add = new DbAdd();
         DbDelete delete = new DbDelete();
         DbUse use = new DbUse();
         add.add();
+        use.use();
         printertest.allGoodsPrint();
         add.add();
         delete.delete();
@@ -71,6 +75,10 @@ public class Main {
         use.use();
         add.add();
         printertest.allGoodsPrint();
+        String testString;
+        int testInt = 1;
+        testString = "asfd" + testInt;
+
 
 
         UserDateSet.userListSet();

@@ -298,7 +298,7 @@ class SixCheck extends CheckDecorator {
         }
         else {
             userInput = "error";
-            System.out.println("\n error.1에서 5사이의 정수를 입력해주세요.");
+            System.out.println("\n error.1에서 6사이의 정수를 입력해주세요.");
             return userInput;
         }
     }

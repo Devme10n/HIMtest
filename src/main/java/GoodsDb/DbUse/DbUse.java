@@ -65,7 +65,7 @@ public class DbUse {
             return;
         }
         newValue = Integer.parseInt(oldValue) - Integer.parseInt(amountUse);
-        goodsObject.put("quantity", newValue);
+        goodsObject.put("quantity", Integer.toString(newValue));
 
         switch (index){
             case "eatGoods" :
