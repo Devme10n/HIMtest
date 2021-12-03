@@ -9,6 +9,7 @@ import User.Register;
 import User.UserDateSet;
 import User.test2;
 import GoodsDb.DbPrint.DbPrinter;
+import GoodsDb.DbDelete.DbDelete;
 
 import Util.UserInput;
 
@@ -59,10 +60,11 @@ public class Main {
         Db test12 = Db.getInstance();
 
         DbAdd add = new DbAdd();
-
+        DbDelete delete = new DbDelete();
         add.add();
         printertest.allGoodsPrint();
         add.add();
+        delete.delete();
         printertest.allGoodsPrint();
         add.add();
         printertest.allGoodsPrint();

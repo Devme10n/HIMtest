@@ -1,5 +1,7 @@
 package Util;
 //추가 라이브러리 불러옴
+import org.json.simple.JSONArray;
+
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -90,7 +92,6 @@ class UserWrite extends Check {
 //Check클래스를 상속한 뒤 아래의 손자 클래스(Check기준)들의 속성을 정의해주는 클래스
 abstract class CheckDecorator extends Check {
     private final Check DECORATED_CHECK;
-    boolean intBoolean;
 
     public CheckDecorator(Check checkedDisplay) {
         this.DECORATED_CHECK = checkedDisplay;
@@ -116,7 +117,7 @@ class IntCheck extends CheckDecorator {
     }
     private String checkInt(String checkString) {
         userInput = checkString;
-        intBoolean = userInput.matches("-?\\d+");
+        boolean intBoolean = userInput.matches("-?\\d+");
         if (!intBoolean) {
             userInput = "error";
             System.out.println("\n error.문자열이 아닌 0보다 큰 정수를 입력해주세요.");
@@ -246,12 +247,12 @@ class FourCheck extends CheckDecorator {
     private String checkFour(String checkString) {
         userInput = checkString;
         if(Objects.equals(userInput, "error")){ return userInput; }
-        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 2){
+        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 4){
             return userInput;
         }
         else {
             userInput = "error";
-            System.out.println("\n error.1에서 2사이의 정수를 입력해주세요.");
+            System.out.println("\n error.1에서 4사이의 정수를 입력해주세요.");
             return userInput;
         }
     }
