@@ -4,6 +4,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //싱글톤패턴을 적용해서 db인스턴스가 한개만 있을 수 있도록 함.
 public class Db extends Subject {
     private static final Db DB_INSTANCE = new Db();
@@ -29,7 +32,8 @@ public class Db extends Subject {
     }
     //전달받은 JSONObject를 allGoodsDb에 덮어쓰는 메소드
     public static void putDb(JSONObject put){
-        System.out.println(put); // testtttttttttttttttttttttttttttttttttttttttttttttttttt
         allGoodsDb = put;
+        notifyObservers(); //부모클래스인 Subject 클래스의 notifyObservers 메소드 호출, 메인DB가 변경됨을 통보 대상인 Observer 인터페이스에게 통보
+
     }
 }
