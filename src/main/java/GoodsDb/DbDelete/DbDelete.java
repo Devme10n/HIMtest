@@ -13,7 +13,7 @@ public class DbDelete {
     String index;
     JSONArray goodsArray;
     public void delete() {
-        JSONObject mainDbObject = Db.getdb(); //물품 전체 db를 JSONObject로 가져옴
+        JSONObject mainDbObject = Db.getDb(); //물품 전체 db를 JSONObject로 가져옴
         goodsArray = new JSONArray();
         System.out.println("\n <물건 삭제 기능에 들어오셨습니다.> \n");
         userSel = userInput.selFour("어떤 분류를 선택하시겠습니까? (식료품 = 1, 비식료품 = 2, 자동구매 식료품 = 3, 자동구매 비식료품 = 4 입력) :");
@@ -44,13 +44,13 @@ public class DbDelete {
             delete();
             return;
         }
-        excut(mainDbObject, goodsArray, index);
+        execute(mainDbObject, goodsArray, index);
     }
-    void excut(JSONObject mainDbObject, JSONArray array, String index) {
+    void execute(JSONObject mainDbObject, JSONArray array, String index) {
         userSel = userInput.integer("\n\n 몇번 물품을 삭제하시겠습니까? :");
         if (Integer.parseInt(userSel) > goodsArray.size()){
             System.out.println("error.리스트에 있는 번호를 입력해주세요.");
-            excut(mainDbObject, array, index);
+            execute(mainDbObject, array, index);
             return;
         }
         array.remove(Integer.parseInt(userSel)-1);
@@ -68,7 +68,7 @@ public class DbDelete {
                 mainDbObject.put("autoNotEatGoods", array);
                 break;
         }
-        Db.putdb(mainDbObject);
+        Db.putDb(mainDbObject);
         System.out.println("물품을 삭제했습니다.");
     }
 }

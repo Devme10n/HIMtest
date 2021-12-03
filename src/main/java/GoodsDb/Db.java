@@ -24,11 +24,11 @@ public class Db extends Subject {
         return DB_INSTANCE;
     }
     //Db클래스의 allGoodsDb를 전달해주는 메소드
-    public static JSONObject getdb(){
+    public static JSONObject getDb(){
         return allGoodsDb;
     }
     //전달받은 JSONObject를 allGoodsDb에 덮어쓰는 메소드
-    public static void putdb(JSONObject put){
+    public static void putDb(JSONObject put){
         System.out.println(put); // testtttttttttttttttttttttttttttttttttttttttttttttttttt
         allGoodsDb = put;
     }

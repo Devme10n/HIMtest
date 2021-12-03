@@ -61,7 +61,7 @@ class DbAddInterface {
     }
     //식료품 추가 메소드
     public void eatGoodsAdd()  {
-        JSONObject mainDbObject = Db.getdb(); //물품 전체 db를 JSONObject로 가져옴
+        JSONObject mainDbObject = Db.getDb(); //물품 전체 db를 JSONObject로 가져옴
         JSONArray eatGoodsArray = (JSONArray) mainDbObject.get("eatGoods"); //식료품들의 JSONObject정보들을 담을 JSONArray 선언
         JSONObject eatGoodsInfo = new JSONObject(); // 식료품 속성들의 정보가 들어갈 JSONObject 선언
 
@@ -74,14 +74,14 @@ class DbAddInterface {
 
         eatGoodsArray.add(eatGoodsInfo); //식료품의 정보를 받는 JSONArray에 식료품 속성들의 정보가 모두 담긴 오브젝트를 삽입
         mainDbObject.put("eatGoods", eatGoodsArray); // 물품 전체 db에 추가된 식료품 JSONArray를 넣음
-        Db.putdb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
+        Db.putDb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
 
         System.out.println(eatGoodsInfo); // test
 
     }
     //비식료품 추가 메소드
     public void notEatGoodsAdd()  {
-        JSONObject mainDbObject = Db.getdb(); //물품 전체 db를 JSONObject로 가져옴
+        JSONObject mainDbObject = Db.getDb(); //물품 전체 db를 JSONObject로 가져옴
         JSONArray notEatGoodsArray = (JSONArray) mainDbObject.get("notEatGoods"); //비식료품들의 JSONObject정보들을 담을 JSONArray 선언
         JSONObject notEatGoodsInfo = new JSONObject(); // 비식료품 속성들의 정보가 들어갈 JSONObject 선언
 
@@ -91,12 +91,12 @@ class DbAddInterface {
 
         notEatGoodsArray.add(notEatGoodsInfo);//비식료품의 정보를 받는 배열에 식료품 하나의 정보가 모두 담긴 오브젝트를 삽입
         mainDbObject.put("notEatGoods", notEatGoodsArray); // 물품 전체 db에 추가된 비식료품 JSONArray를 넣음
-        Db.putdb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
+        Db.putDb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
 
     }
     //자동구매를 설정한 식료품 추가 메소드
     public void autoEatGoodsAdd() {
-        JSONObject mainDbObject = Db.getdb();
+        JSONObject mainDbObject = Db.getDb();
         JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods");
         JSONObject autoEatGoodsInfo = new JSONObject();
 
@@ -110,12 +110,12 @@ class DbAddInterface {
 
         autoEatGoodsArray.add(autoEatGoodsInfo);
         mainDbObject.put("autoEatGoods", autoEatGoodsArray);
-        Db.putdb(mainDbObject);
+        Db.putDb(mainDbObject);
 
     }
     //자동구매를 설정한 비식료품 추가 메소드
     public void autoNotEatGoodsAdd() {
-        JSONObject mainDbObject = Db.getdb();
+        JSONObject mainDbObject = Db.getDb();
         JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
         JSONObject autoNotEatGoodsInfo;
 
@@ -126,7 +126,7 @@ class DbAddInterface {
 
         autoNotEatGoodsArray.add(autoNotEatGoodsInfo);
         mainDbObject.put("autoNotEatGoods", autoNotEatGoodsArray);
-        Db.putdb(mainDbObject);
+        Db.putDb(mainDbObject);
     }
 }
 //식료품, 비식료품, 자동구매 식료품, 자동구매 비식료품들이 기본적으로 가지고 있는 겹치는 속성들을 하나로 묶어주는 클래스

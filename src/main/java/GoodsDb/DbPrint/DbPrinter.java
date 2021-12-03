@@ -7,7 +7,7 @@ import org.json.simple.JSONObject;
 public class DbPrinter {
 
     public void eatGoodsPrint(){
-        JSONObject mainDbObject = Db.getdb();
+        JSONObject mainDbObject = Db.getDb();
         JSONArray eatGoodsArray = (JSONArray) mainDbObject.get("eatGoods");
         System.out.println("\n\n ==========식료품==========");
         if (eatGoodsArray.size() == 0)
@@ -21,7 +21,7 @@ public class DbPrinter {
 
     }
     public void notEatGoodsPrint(){
-        JSONObject mainDbObject = Db.getdb();
+        JSONObject mainDbObject = Db.getDb();
         JSONArray notEatGoodsArray = (JSONArray) mainDbObject.get("notEatGoods");
         System.out.println("\n\n ==========비식료품==========");
         if (notEatGoodsArray.size() == 0)
@@ -35,7 +35,7 @@ public class DbPrinter {
 
     }
     public void autoEatGoodsPrint(){
-        JSONObject mainDbObject = Db.getdb();
+        JSONObject mainDbObject = Db.getDb();
         JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods");
         System.out.println("\n\n ==========자동구매 식료품==========");
         if (autoEatGoodsArray.size() == 0)
@@ -48,7 +48,7 @@ public class DbPrinter {
         }
     }
     public void autoNotEatGoodsPrint(){
-        JSONObject mainDbObject = Db.getdb();
+        JSONObject mainDbObject = Db.getDb();
         JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
         System.out.println("\n\n ==========자동구매 비식료품==========");
         if (autoNotEatGoodsArray.size() == 0)

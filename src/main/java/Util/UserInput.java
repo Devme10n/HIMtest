@@ -257,3 +257,70 @@ class FourCheck extends CheckDecorator {
         }
     }
 }
+class FiveCheck extends CheckDecorator {
+    public FiveCheck(Check checkedDisplay) {
+        super(checkedDisplay);
+    }
+    @Override
+    public String check() {
+        userInput = super.check();
+        userInput = checkFive(userInput);
+        return userInput;
+    }
+    private String checkFive(String checkString) {
+        userInput = checkString;
+        if(Objects.equals(userInput, "error")){ return userInput; }
+        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 5){
+            return userInput;
+        }
+        else {
+            userInput = "error";
+            System.out.println("\n error.1에서 5사이의 정수를 입력해주세요.");
+            return userInput;
+        }
+    }
+}
+class SixCheck extends CheckDecorator {
+    public SixCheck(Check checkedDisplay) {
+        super(checkedDisplay);
+    }
+    @Override
+    public String check() {
+        userInput = super.check();
+        userInput = checkSix(userInput);
+        return userInput;
+    }
+    private String checkSix(String checkString) {
+        userInput = checkString;
+        if(Objects.equals(userInput, "error")){ return userInput; }
+        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 6){
+            return userInput;
+        }
+        else {
+            userInput = "error";
+            System.out.println("\n error.1에서 5사이의 정수를 입력해주세요.");
+            return userInput;
+        }
+    }
+}
+class QuitCheck extends CheckDecorator {
+    public QuitCheck(Check checkedDisplay) {
+        super(checkedDisplay);
+    }
+    @Override
+    public String check() {
+        userInput = super.check();
+        userInput = checkQuit(userInput);
+        return userInput;
+    }
+    private String checkQuit(String checkString) {
+        userInput = checkString;
+        if(Objects.equals(userInput, "error")){ return userInput; }
+        if (userInput == "q"){
+            userInput = "q";
+            System.out.println("\n 나가기를 선택하셨습니다.");
+            return userInput;
+        }
+        return userInput;
+    }
+}
