@@ -42,14 +42,16 @@ public class DbDelete {
         if (goodsArray.size() == 0){
             System.out.println("error.해당 분류에는 물품이 없습니다.");
             delete();
+            return;
         }
         excut(mainDbObject, goodsArray, index);
     }
     void excut(JSONObject mainDbObject, JSONArray array, String index) {
         userSel = userInput.integer("\n\n 몇번 물품을 삭제하시겠습니까? :");
-        if (Integer.parseInt(userSel) >= goodsArray.size()){
+        if (Integer.parseInt(userSel) > goodsArray.size()){
             System.out.println("error.리스트에 있는 번호를 입력해주세요.");
             excut(mainDbObject, array, index);
+            return;
         }
         array.remove(Integer.parseInt(userSel)-1);
         switch (index){
