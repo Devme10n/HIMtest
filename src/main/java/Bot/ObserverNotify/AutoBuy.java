@@ -1,6 +1,5 @@
-package Bot.ObserverNotifyClass;
+package Bot.ObserverNotify;
 
-import Bot.ObserverNotifyClass.Observer;
 import GoodsDb.Db;
 import Bot.BotLog;
 import java.lang.String;

@@ -1,7 +1,7 @@
 package GoodsDb;
 
 import java.util.*;
-import Bot.ObserverNotifyClass.Observer;
+import Bot.ObserverNotify.Observer;
 
 abstract class Subject {
     private static final List<Observer> observers = new ArrayList<>(); //ArrayList 인스턴스를 생성한 다음, 그 인스턴스의 주소를 Observer타입을 리턴하는 List 인터페이스의 참조변수 observers에 저장 //@@통보받을 대상들의 리스트

@@ -1,4 +1,4 @@
-package Bot.ObserverNotifyClass;
+package Bot.ObserverNotify;
 
 public interface Observer {
     void update();

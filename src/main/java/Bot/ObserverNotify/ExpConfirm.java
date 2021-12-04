@@ -1,7 +1,5 @@
-package Bot.ObserverNotifyClass;
+package Bot.ObserverNotify;
 
-import Bot.BotLog;
-import Bot.ObserverNotifyClass.Observer;
 import java.util.*;
 import GoodsDb.Db;
 import org.json.simple.JSONArray;
@@ -9,10 +7,10 @@ import org.json.simple.JSONObject;
 
 import java.time.LocalDate;
 
-public class ExpNotification implements Observer {
+public class ExpConfirm implements Observer {
     public static List<String> alarmArray = new ArrayList<String>();
 
-    public ExpNotification() {
+    public ExpConfirm() {
         alarmArray.add("# 유통기한 알람 없음.");
     }
 
@@ -21,7 +19,7 @@ public class ExpNotification implements Observer {
         JSONObject mainDbObject = Db.getDb();
         JSONArray eatGoodsArray = (JSONArray) mainDbObject.get("eatGoods"); //eatGoodsArray을 선언하고, 식료품들의 JSONObject정보들을 담음
         JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods"); //autoEatGoodsArray을 선언하고, 자동구매 식료품들의 JSONObject정보들을 담음
-        ExpNotification.alarmArray = new ArrayList<String>();
+        ExpConfirm.alarmArray = new ArrayList<String>();
         expCheck.check(eatGoodsArray);
         expCheck.check(autoEatGoodsArray);
 
@@ -52,24 +50,24 @@ class ExpCheck {
 
             if (Integer.parseInt(checkYear) <= y) {
                 if (Integer.parseInt(checkYear) < y)
-                    ExpNotification.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 지났습니다.");
+                    ExpConfirm.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 지났습니다.");
 
                 else {
                     if (Integer.parseInt(checkMonth) <= m) {
                         if (Integer.parseInt(checkMonth) < m)
-                            ExpNotification.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+"이(가) 유톻기한이 지났습니다.");
+                            ExpConfirm.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+"이(가) 유톻기한이 지났습니다.");
 
                         else {
                             if (Integer.parseInt(checkDay) <= d) {
                                 if (Integer.parseInt(checkDay) < d)
-                                    ExpNotification.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 지났습니다.");
+                                    ExpConfirm.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 지났습니다.");
 
                                 else
-                                    ExpNotification.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 오늘까지입니다.");
+                                    ExpConfirm.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 오늘까지입니다.");
                             }
                             if ((Integer.parseInt(checkDay) - d) > 0 && (Integer.parseInt(checkDay) - d) <= 3){
                                 int countDown = Integer.parseInt(checkDay) - d;
-                                ExpNotification.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 "+countDown+"일 남았습니다.");
+                                ExpConfirm.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 "+countDown+"일 남았습니다.");
                             }
                         }
 
