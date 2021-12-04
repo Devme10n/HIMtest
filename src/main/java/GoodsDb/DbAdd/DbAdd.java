@@ -34,13 +34,13 @@ public class DbAdd{
             selInt += 10;
         else
             selInt += 20;
-
-
+        JSONObject mainDbObject = Db.getDb();
+        //사용자가 설정한 조건에 따라 알맞는 메소드 호출
         switch (selInt) {
-            case 11 -> dbAddInt.autoEatGoodsAdd();
-            case 12 -> dbAddInt.autoNotEatGoodsAdd();
-            case 21 -> dbAddInt.eatGoodsAdd();
-            case 22 -> dbAddInt.notEatGoodsAdd();
+            case 11 -> dbAddInt.autoEatGoodsAdd(mainDbObject);
+            case 12 -> dbAddInt.autoNotEatGoodsAdd(mainDbObject);
+            case 21 -> dbAddInt.eatGoodsAdd(mainDbObject);
+            case 22 -> dbAddInt.notEatGoodsAdd(mainDbObject);
             default -> {
                 System.out.println("error");
                 add();
@@ -52,9 +52,12 @@ public class DbAdd{
 //식료품, 비식료품, 자동식료품, 자동비식료품을 구성요소인 하위 클래스들을 조합한 메소드를 통해 추가해줄 통합인터페이스 클래스(퍼사드 패턴)
 class DbAddInterface {
     //하위 클래스들의 주소값을 저장할 상수들을 선언
+    JSONObject goodsInfo;
+    JSONArray goodsArray;
     private final BasicAdd BASIC_ADD;
     private final ExpDateProperty EXP_DATE;
     private final AutoBuyProperty AUTO_BUY;
+
 
     //생성자로 처음 한번 하위 클래스들의 상수에 주소값을 넣어서 초기화를 시켜줌
     public DbAddInterface(){
@@ -63,69 +66,65 @@ class DbAddInterface {
         AUTO_BUY = new AutoBuyProperty();
     }
     //식료품 추가 메소드
-    public void eatGoodsAdd()  {
-        JSONObject mainDbObject = Db.getDb(); //물품 전체 db를 JSONObject로 가져옴
-        JSONArray eatGoodsArray = (JSONArray) mainDbObject.get("eatGoods"); //식료품들의 JSONObject정보들을 담을 JSONArray 선언
-        JSONObject eatGoodsInfo = new JSONObject(); // 식료품 속성들의 정보가 들어갈 JSONObject 선언
+    public void eatGoodsAdd(JSONObject mainDbObject)  {
+        goodsArray = (JSONArray) mainDbObject.get("eatGoods"); //식료품들의 JSONObject정보들을 담을 JSONArray 선언
+        goodsInfo = new JSONObject(); // 식료품 속성들의 정보가 들어갈 JSONObject 선언
 
         System.out.println("\n<식료품의 추가를 선택하셨습니다.> \n");
 
-        eatGoodsInfo = BASIC_ADD.add("A");
-        eatGoodsInfo.put("expYear",EXP_DATE.add("Y"));
-        eatGoodsInfo.put("expMonth",EXP_DATE.add("M"));
-        eatGoodsInfo.put("expDay",EXP_DATE.add("D"));
+        goodsInfo = BASIC_ADD.add("A");
+        goodsInfo.put("expYear",EXP_DATE.add("Y"));
+        goodsInfo.put("expMonth",EXP_DATE.add("M"));
+        goodsInfo.put("expDay",EXP_DATE.add("D"));
 
-        eatGoodsArray.add(eatGoodsInfo); //식료품의 정보를 받는 JSONArray에 식료품 속성들의 정보가 모두 담긴 오브젝트를 삽입
-        mainDbObject.put("eatGoods", eatGoodsArray); // 물품 전체 db에 추가된 식료품 JSONArray를 넣음
+        goodsArray.add(goodsInfo); //식료품의 정보를 받는 JSONArray에 식료품 속성들의 정보가 모두 담긴 오브젝트를 삽입
+        mainDbObject.put("eatGoods", goodsArray); // 물품 전체 db에 추가된 식료품 JSONArray를 넣음
         Db.putDb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
     }
     //비식료품 추가 메소드
-    public void notEatGoodsAdd()  {
-        JSONObject mainDbObject = Db.getDb(); //물품 전체 db를 JSONObject로 가져옴
-        JSONArray notEatGoodsArray = (JSONArray) mainDbObject.get("notEatGoods"); //비식료품들의 JSONObject정보들을 담을 JSONArray 선언
-        JSONObject notEatGoodsInfo = new JSONObject(); // 비식료품 속성들의 정보가 들어갈 JSONObject 선언
+    public void notEatGoodsAdd(JSONObject mainDbObject)  {
+        goodsArray = (JSONArray) mainDbObject.get("notEatGoods"); //비식료품들의 JSONObject정보들을 담을 JSONArray 선언
+        goodsInfo = new JSONObject(); // 비식료품 속성들의 정보가 들어갈 JSONObject 선언
 
         System.out.println("\n<비식료품의 추가를 선택하셨습니다.> \n");
 
-        notEatGoodsInfo = BASIC_ADD.add("B");
+        goodsInfo = BASIC_ADD.add("B");
 
-        notEatGoodsArray.add(notEatGoodsInfo);//비식료품의 정보를 받는 배열에 식료품 하나의 정보가 모두 담긴 오브젝트를 삽입
-        mainDbObject.put("notEatGoods", notEatGoodsArray); // 물품 전체 db에 추가된 비식료품 JSONArray를 넣음
+        goodsArray.add(goodsInfo);//비식료품의 정보를 받는 배열에 식료품 하나의 정보가 모두 담긴 오브젝트를 삽입
+        mainDbObject.put("notEatGoods", goodsArray); // 물품 전체 db에 추가된 비식료품 JSONArray를 넣음
         Db.putDb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
 
     }
     //자동구매를 설정한 식료품 추가 메소드
-    public void autoEatGoodsAdd() {
-        JSONObject mainDbObject = Db.getDb();
-        JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods");
-        JSONObject autoEatGoodsInfo = new JSONObject();
+    public void autoEatGoodsAdd(JSONObject mainDbObject) {
+        goodsArray = (JSONArray) mainDbObject.get("autoEatGoods");
+        goodsInfo = new JSONObject();
 
         System.out.println("\n<자동구매 식료품의 추가를 선택하셨습니다.> \n");
 
-        autoEatGoodsInfo = BASIC_ADD.add("C");
-        autoEatGoodsInfo.put("expYear",EXP_DATE.add("Y"));
-        autoEatGoodsInfo.put("expMonth",EXP_DATE.add("M"));
-        autoEatGoodsInfo.put("expDay",EXP_DATE.add("D"));
-        autoEatGoodsInfo.put("autoBuy", AUTO_BUY.add());
+        goodsInfo = BASIC_ADD.add("C");
+        goodsInfo.put("expYear",EXP_DATE.add("Y"));
+        goodsInfo.put("expMonth",EXP_DATE.add("M"));
+        goodsInfo.put("expDay",EXP_DATE.add("D"));
+        goodsInfo.put("autoBuy", AUTO_BUY.add());
 
-        autoEatGoodsArray.add(autoEatGoodsInfo);
-        mainDbObject.put("autoEatGoods", autoEatGoodsArray);
+        goodsArray.add(goodsInfo);
+        mainDbObject.put("autoEatGoods", goodsArray);
         Db.putDb(mainDbObject);
 
     }
     //자동구매를 설정한 비식료품 추가 메소드
-    public void autoNotEatGoodsAdd() {
-        JSONObject mainDbObject = Db.getDb();
-        JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
-        JSONObject autoNotEatGoodsInfo;
+    public void autoNotEatGoodsAdd(JSONObject mainDbObject) {
+        goodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
+        goodsInfo = new JSONObject();
 
         System.out.println("\n<자동구매 비식료품의 추가를 선택하셨습니다.> \n");
 
-        autoNotEatGoodsInfo = BASIC_ADD.add("D");
-        autoNotEatGoodsInfo.put("autoBuy", AUTO_BUY.add());
+        goodsInfo = BASIC_ADD.add("D");
+        goodsInfo.put("autoBuy", AUTO_BUY.add());
 
-        autoNotEatGoodsArray.add(autoNotEatGoodsInfo);
-        mainDbObject.put("autoNotEatGoods", autoNotEatGoodsArray);
+        goodsArray.add(goodsInfo);
+        mainDbObject.put("autoNotEatGoods", goodsArray);
         Db.putDb(mainDbObject);
     }
 }
