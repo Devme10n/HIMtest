@@ -50,14 +50,21 @@ public class UserInput {
         return returnString;
     }
     public String selTwo(String print){
-        Check twoCheck = new TwoCheck(new IntCheck(new UserWrite(print)));
+        Check twoCheck = new QuitCheck(new TwoCheck(new IntCheck(new UserWrite(print))));
         returnString = twoCheck.check();
         if (returnString == "error")
             selTwo(print);
         return returnString;
     }
     public String selFour(String print){
-        Check fourCheck = new FourCheck(new IntCheck(new UserWrite(print)));
+        Check fourCheck = new QuitCheck(new FourCheck(new IntCheck(new UserWrite(print))));
+        returnString = fourCheck.check();
+        if (returnString == "error")
+            selFour(print);
+        return returnString;
+    }
+    public String selFive(String print){
+        Check fourCheck = new QuitCheck(new FiveCheck(new IntCheck(new UserWrite(print))));
         returnString = fourCheck.check();
         if (returnString == "error")
             selFour(print);
@@ -257,6 +264,7 @@ class FourCheck extends CheckDecorator {
         }
     }
 }
+
 class FiveCheck extends CheckDecorator {
     public FiveCheck(Check checkedDisplay) {
         super(checkedDisplay);
@@ -276,29 +284,6 @@ class FiveCheck extends CheckDecorator {
         else {
             userInput = "error";
             System.out.println("\n error.1에서 5사이의 정수를 입력해주세요.");
-            return userInput;
-        }
-    }
-}
-class SixCheck extends CheckDecorator {
-    public SixCheck(Check checkedDisplay) {
-        super(checkedDisplay);
-    }
-    @Override
-    public String check() {
-        userInput = super.check();
-        userInput = checkSix(userInput);
-        return userInput;
-    }
-    private String checkSix(String checkString) {
-        userInput = checkString;
-        if(Objects.equals(userInput, "error")){ return userInput; }
-        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 6){
-            return userInput;
-        }
-        else {
-            userInput = "error";
-            System.out.println("\n error.1에서 6사이의 정수를 입력해주세요.");
             return userInput;
         }
     }

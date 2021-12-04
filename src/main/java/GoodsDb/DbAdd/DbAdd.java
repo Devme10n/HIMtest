@@ -25,7 +25,9 @@ public class DbAdd{
             selInt = 1;
         else
             selInt = 2;
-
+        if (userSel == "q") {
+            return;
+        }
         userSel = userInput.selTwo("자동구매를 설정할 물건인가요? (Yes = 1, No = 2 입력) :");
         if (userSel.equals("1"))
             selInt += 10;
