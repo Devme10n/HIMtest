@@ -25,7 +25,6 @@ public class Main {
         BotMain.main();
         System.out.println("\n<HIM 프로그램이 실행되었습니다.>");
         login();
-        return; //사용자가 로그인 메소드에서 나가기를 선택했으면 프로그램 종료
     }
     //로그인을 관리해줄 메소드
     public static void login() {
@@ -76,7 +75,6 @@ public class Main {
                 return;
         }
         mainMenu(); //사용자가 로그인 메뉴로 돌아가기를 선택하기 전까지 재귀
-
     }
 
 }

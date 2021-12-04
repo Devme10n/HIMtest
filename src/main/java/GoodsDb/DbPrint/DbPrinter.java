@@ -83,8 +83,6 @@ class BasicPrinter extends Printer { //기본적인 것들 프린트
         obj = object;
     }
 
-    public void BasicPrinter (JSONObject inObj) { obj = inObj; }
-
     public JSONObject print() {
         System.out.print(" 코드 = "+obj.get("code"));
         System.out.print(" // 이름 = "+obj.get("name"));
