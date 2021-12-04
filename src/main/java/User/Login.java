@@ -1,6 +1,7 @@
 package User;
 
 import Main.Main;
+import Util.UserInput;
 
 public class Login {
 
@@ -11,8 +12,8 @@ public class Login {
 
         while(true){
 
-            String id= Main.input("ID : ");
-            String password =Main.input("PW : ");
+            String id= UserInput.simple("ID : ");
+            String password =UserInput.simple("PW : ");
 
             try{
                 if(UserDateSet.userList.get(id).getPassword().equals(password)) {
@@ -33,8 +34,9 @@ public class Login {
             }
             finally{
                 if(cnt ==3) {//카운터 값을 줘 3번 실패시 회원가입 창으로 넘어가게 했다.
-                    System.out.println("비밀번호가 다릅니다. 회원 가입으로 전환합니다.");
-                    Register.register();
+                    System.out.println("로그인을 3회 실패했습니다. 처음부터 다시 진행해 주세요.");
+                    Main.login();
+                    return;
                 }
 
             }

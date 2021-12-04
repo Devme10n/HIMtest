@@ -63,7 +63,7 @@ class ExpCheck {
                                 else
                                     ExpNotification.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 오늘까지 입니다.");
                             }
-                            if ((Integer.parseInt(checkDay) - d) <= 3){
+                            if ((Integer.parseInt(checkDay) - d) > 0 && (Integer.parseInt(checkDay) - d) <= 3){
                                 int countDown = Integer.parseInt(checkDay) - d;
                                 ExpNotification.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 "+countDown+"일 남았습니다.");
                             }

@@ -38,7 +38,7 @@ public class BotMain {
         System.out.println("프린트알람 진입");//testttttttttttttttttttttttttttttttttt
         List<String> array = ExpNotification.alarmArray;
         for(int i=0; i<array.size() ; i++){
-            System.out.println("\n" +array.get(i));
+            System.out.println(array.get(i));
         }
     }
 }

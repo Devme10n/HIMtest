@@ -11,7 +11,6 @@ import GoodsDb.DbAdd.DbAddUnderClass.*;
 
 //사용자가 물품 추가를 선택하면 물품의 유통기한 여부나 자동구매 여부에 따라 물품종류를 나눠주는 클래스
 public class DbAdd{
-    UserInput userInput = new UserInput();
     DbAddInterface dbAddInt = new DbAddInterface();
     String userSel;
     int selInt;
@@ -20,7 +19,7 @@ public class DbAdd{
     public void add(){
         //여기 I/O 적용해야함
         System.out.println("\n <물건 추가 기능에 들어오셨습니다.> \n");
-        userSel = userInput.selTwo("물건이 유통기한이 있나요? (Yes = 1, No = 2 입력) :");
+        userSel = UserInput.selTwo("물건이 유통기한이 있나요? (Yes = 1, No = 2 입력) :");
         if (userSel.equals("1"))
             selInt = 1;
         else
@@ -28,7 +27,7 @@ public class DbAdd{
         if (userSel == "q") {
             return;
         }
-        userSel = userInput.selTwo("자동구매를 설정할 물건인가요? (Yes = 1, No = 2 입력) :");
+        userSel = UserInput.selTwo("자동구매를 설정할 물건인가요? (Yes = 1, No = 2 입력) :");
         if (userSel.equals("1"))
             selInt += 10;
         else

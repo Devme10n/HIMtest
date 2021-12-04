@@ -7,9 +7,8 @@ public class UserDateSet {
     //키 값은 id로 해 중복 체크도 가능케 했다.
 
     public static void userListSet() {
-        userList.put("진영", new UserVO("1","1"));
-        userList.put("수빈", new UserVO("2","2"));
-        userList.put("승규", new UserVO("3","3"));
+        userList.put("진영", new UserVO("진영","1234"));
+
     }
 
 

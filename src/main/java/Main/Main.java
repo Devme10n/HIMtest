@@ -23,7 +23,6 @@ import org.json.simple.JSONObject;
 public class Main {
     static Scanner sc = new Scanner(System.in);
 
-    static UserInput userInput = new UserInput();
     static String userSell;
     static DbAdd dbAdd = new DbAdd();
     static DbUse dbUse = new DbUse();
@@ -32,65 +31,9 @@ public class Main {
     static BotMain botMain = new BotMain();
 
     public static void main(String[] args) {
-
-        DbPrinter printertest = new DbPrinter();
-        printertest.eatGoodsPrint();
-
-        Calendar date1 = Calendar.getInstance();
-
-
-        String s1 = "2016";
-        int i1 = Integer.parseInt(s1);
-        date1.set(i1, 7, 15);
-        System.out.println(date1);
-
-
-
-        Gson gson = new Gson();
-
-
-        String asdf = input( "name에 넣을 값은? :");
-        System.out.println("asdf");
-
-        JSONObject jsonObjectt = new JSONObject();
-        jsonObjectt.put("name", asdf);
-        jsonObjectt.put("id", 1);
-        String jsonStr = gson.toJson(jsonObjectt);
-
-        System.out.println(jsonStr);
-        jsonObjectt.put("id", 2);
-
-        jsonStr = gson.toJson(jsonObjectt);
-
-        System.out.println(jsonStr);
-
-        test2.test22();
-        Db test12 = Db.getInstance();
-
-        botMain.main();
-
-        DbAdd add = new DbAdd();
-        DbDelete delete = new DbDelete();
-        DbUse use = new DbUse();
-
-        add.add();
-        botMain.printAlarm();
-        use.use();
-        printertest.allGoodsPrint();
-        botMain.printBotLog();
-        add.add();
-        delete.delete();
-        printertest.allGoodsPrint();
-        use.use();
-        add.add();
-        printertest.allGoodsPrint();
-        String testString;
-        int testInt = 1;
-        testString = "asfd" + testInt;
-
-
+        login();
     }
-    public void login() {
+    public static void login() {
         UserDateSet.userListSet();
         String n = input( "로그인 1 회원가입 2 를 입력해주세요.");
 
@@ -101,11 +44,12 @@ public class Main {
             Login.login();
         }
     }
-    public void mainMenu() {
+    public static void mainMenu() {
         System.out.println("\n <메인 메뉴에 들어오셨습니다.> \n");
+        System.out.println("\n\n ==========유통기한 알림==========");
         botMain.printAlarm();
         System.out.print("1. 물품 추가 \n 2. 물품 사용 \n 3. 물품 삭제 \n 4. 물품 리스트 출력 \n 5. 자동구매 로그 확인 \n 로그인 메뉴로 돌아가시려면 q를 입력해주세요.");
-        userSell = userInput.selFive("어떤 기능을 선택하시겠습니까? :");
+        userSell = UserInput.selFive("어떤 기능을 선택하시겠습니까? :");
         if (userSell == "q")
             return;
         switch(userSell) {

@@ -8,17 +8,17 @@ import java.util.Scanner;
 //데코레이터 디자인 패턴을 사용해서 사용자에게 값을 받고 예외처리를 한 뒤 돌려주는 클래스
 public class UserInput {
     //반환할 문자열타입 변수 선언
-    String returnString;
+    static String returnString;
 
     //사용자가 입력한 값을 예외처리를 안하고 그대로 반환하는 메소드
-    public String simple(String print){
+    public static String simple(String print){
         Check simpleCheck = new UserWrite(print);
         returnString = simpleCheck.check();
         return returnString;
     }
 
     //사용자가 입력한 값을 정수인지 확인하고 년도값이 올바른지 확인한 후 반환하는 메소드
-    public String year(String print){
+    public static String year(String print){
         Check yearCheck = new YearCheck(new IntCheck(new UserWrite(print)));
         returnString = yearCheck.check();
         if (returnString == "error")
@@ -26,7 +26,7 @@ public class UserInput {
         return returnString;
     }
     //사용자가 입력한 값을 정수인지 확인하고 월값이 올바른지 확인한 후 반환하는 메소드
-    public String month(String print){
+    public static String month(String print){
         Check monthCheck = new MonthCheck(new IntCheck(new UserWrite(print)));
         returnString = monthCheck.check();
         if (returnString == "error")
@@ -34,7 +34,7 @@ public class UserInput {
         return returnString;
     }
     //사용자가 입력한 값을 정수인지 확인하고 일값이 올바른지 확인한 후 반환하는 메소드
-    public String day(String print){
+    public static String day(String print){
         Check dayCheck = new DayCheck(new IntCheck(new UserWrite(print)));
         returnString = dayCheck.check();
         if (returnString == "error")
@@ -42,28 +42,28 @@ public class UserInput {
         return returnString;
     }
     //사용자가 입력한 값을 정수인지만 확인하고 반환하는 메소드
-    public String integer(String print){
+    public static String integer(String print){
         Check intDraw = new IntCheck(new UserWrite(print));
         returnString = intDraw.check();
         if (returnString == "error")
             integer(print);
         return returnString;
     }
-    public String selTwo(String print){
+    public static String selTwo(String print){
         Check twoCheck = new QuitCheck(new TwoCheck(new IntCheck(new UserWrite(print))));
         returnString = twoCheck.check();
         if (returnString == "error")
             selTwo(print);
         return returnString;
     }
-    public String selFour(String print){
+    public static String selFour(String print){
         Check fourCheck = new QuitCheck(new FourCheck(new IntCheck(new UserWrite(print))));
         returnString = fourCheck.check();
         if (returnString == "error")
             selFour(print);
         return returnString;
     }
-    public String selFive(String print){
+    public static String selFive(String print){
         Check fourCheck = new QuitCheck(new FiveCheck(new IntCheck(new UserWrite(print))));
         returnString = fourCheck.check();
         if (returnString == "error")
