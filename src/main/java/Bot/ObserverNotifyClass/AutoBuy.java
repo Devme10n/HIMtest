@@ -12,7 +12,6 @@ import org.json.simple.JSONObject;
 public class AutoBuy implements Observer {
     QuantityCheck quantityCheck = new QuantityCheck();
     public void update (){
-        System.out.println("업데이트 성공함"); //testttttttttttttttttttttttttttttt
         JSONObject mainDbObject = Db.getDb();
         JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods"); //autoEatGoodsArray을 선언하고, 자동구매 식료품들의 JSONObject정보들을 담음
         JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods"); //autoNotEatGoodsArray을 선언하고, 자동구매 비식료품들의 JSONObject정보들을 담음
@@ -53,7 +52,6 @@ class QuantityCheck {
                         }
                     }
                 }
-                System.out.println("<자동구매 완료>"); //testttttttttttttttttttttttttttttttttttttt
                 BotLog.putLog((String)object.get("code"), (String)object.get("name"), (String)object.get("autoBuy"));
             }
 

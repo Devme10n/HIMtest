@@ -49,25 +49,25 @@ public class UserInput {
             integer(print);
         return returnString;
     }
-    public static String selTwo(String print){
-        Check twoCheck = new QuitCheck(new TwoCheck(new IntCheck(new UserWrite(print))));
-        returnString = twoCheck.check();
+    public static String selThree(String print){
+        Check threeCheck = new ThreeCheck(new IntCheck(new UserWrite(print)));
+        returnString = threeCheck.check();
         if (returnString == "error")
-            selTwo(print);
-        return returnString;
-    }
-    public static String selFour(String print){
-        Check fourCheck = new QuitCheck(new FourCheck(new IntCheck(new UserWrite(print))));
-        returnString = fourCheck.check();
-        if (returnString == "error")
-            selFour(print);
+            selThree(print);
         return returnString;
     }
     public static String selFive(String print){
-        Check fourCheck = new QuitCheck(new FiveCheck(new IntCheck(new UserWrite(print))));
+        Check fourCheck = new FiveCheck(new IntCheck(new UserWrite(print)));
         returnString = fourCheck.check();
         if (returnString == "error")
-            selFour(print);
+            selFive(print);
+        return returnString;
+    }
+    public static String selSix(String print){
+        Check fourCheck = new SixCheck(new IntCheck(new UserWrite(print)));
+        returnString = fourCheck.check();
+        if (returnString == "error")
+            selSix(print);
         return returnString;
     }
 
@@ -124,6 +124,7 @@ class IntCheck extends CheckDecorator {
     }
     private String checkInt(String checkString) {
         userInput = checkString;
+
         boolean intBoolean = userInput.matches("-?\\d+");
         if (!intBoolean) {
             userInput = "error";
@@ -218,53 +219,29 @@ class DayCheck extends CheckDecorator {
         }
     }
 }
-class TwoCheck extends CheckDecorator {
-    public TwoCheck(Check checkedDisplay) {
+class ThreeCheck extends CheckDecorator {
+    public ThreeCheck(Check checkedDisplay) {
         super(checkedDisplay);
     }
     @Override
     public String check() {
         userInput = super.check();
-        userInput = checkTwo(userInput);
+        userInput = checkThree(userInput);
         return userInput;
     }
-    private String checkTwo(String checkString) {
+    private String checkThree(String checkString) {
         userInput = checkString;
         if(Objects.equals(userInput, "error")){ return userInput; }
-        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 2){
+        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 3){
             return userInput;
         }
         else {
             userInput = "error";
-            System.out.println("\n error.1에서 2사이의 정수를 입력해주세요.");
+            System.out.println("\n error.1에서 3사이의 정수를 입력해주세요.");
             return userInput;
         }
     }
 }
-class FourCheck extends CheckDecorator {
-    public FourCheck(Check checkedDisplay) {
-        super(checkedDisplay);
-    }
-    @Override
-    public String check() {
-        userInput = super.check();
-        userInput = checkFour(userInput);
-        return userInput;
-    }
-    private String checkFour(String checkString) {
-        userInput = checkString;
-        if(Objects.equals(userInput, "error")){ return userInput; }
-        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 4){
-            return userInput;
-        }
-        else {
-            userInput = "error";
-            System.out.println("\n error.1에서 4사이의 정수를 입력해주세요.");
-            return userInput;
-        }
-    }
-}
-
 class FiveCheck extends CheckDecorator {
     public FiveCheck(Check checkedDisplay) {
         super(checkedDisplay);
@@ -288,24 +265,26 @@ class FiveCheck extends CheckDecorator {
         }
     }
 }
-class QuitCheck extends CheckDecorator {
-    public QuitCheck(Check checkedDisplay) {
+class SixCheck extends CheckDecorator {
+    public SixCheck(Check checkedDisplay) {
         super(checkedDisplay);
     }
     @Override
     public String check() {
         userInput = super.check();
-        userInput = checkQuit(userInput);
+        userInput = checkSix(userInput);
         return userInput;
     }
-    private String checkQuit(String checkString) {
+    private String checkSix(String checkString) {
         userInput = checkString;
         if(Objects.equals(userInput, "error")){ return userInput; }
-        if (userInput == "q"){
-            userInput = "q";
-            System.out.println("\n 나가기를 선택하셨습니다.");
+        if (Integer.parseInt(userInput) >= 1 && Integer.parseInt(userInput) <= 6){
             return userInput;
         }
-        return userInput;
+        else {
+            userInput = "error";
+            System.out.println("\n error.1에서 6사이의 정수를 입력해주세요.");
+            return userInput;
+        }
     }
 }

@@ -17,17 +17,19 @@ public class DbAdd{
 
     //물품종류를 조건에 맞춰서 나눠주는 메소드
     public void add(){
-        //여기 I/O 적용해야함
-        System.out.println("\n <물건 추가 기능에 들어오셨습니다.> \n");
-        userSel = UserInput.selTwo("물건이 유통기한이 있나요? (Yes = 1, No = 2 입력) :");
+        System.out.println("\n<물건 추가 기능에 들어오셨습니다.> \n");
+        userSel = UserInput.selThree(" 물건이 유통기한이 있나요? (Yes = 1, No = 2, 나가기 = 3) :");
+        if (userSel.equals("3"))
+            return;
         if (userSel.equals("1"))
             selInt = 1;
         else
             selInt = 2;
-        if (userSel == "q") {
+
+
+        userSel = UserInput.selThree(" 자동구매를 설정할 물건인가요? (Yes = 1, No = 2, 나가기 = 3) :");
+        if (userSel.equals("3"))
             return;
-        }
-        userSel = UserInput.selTwo("자동구매를 설정할 물건인가요? (Yes = 1, No = 2 입력) :");
         if (userSel.equals("1"))
             selInt += 10;
         else
@@ -66,7 +68,7 @@ class DbAddInterface {
         JSONArray eatGoodsArray = (JSONArray) mainDbObject.get("eatGoods"); //식료품들의 JSONObject정보들을 담을 JSONArray 선언
         JSONObject eatGoodsInfo = new JSONObject(); // 식료품 속성들의 정보가 들어갈 JSONObject 선언
 
-        System.out.println("\n <식료품의 추가를 선택하셨습니다.> \n");
+        System.out.println("\n<식료품의 추가를 선택하셨습니다.> \n");
 
         eatGoodsInfo = BASIC_ADD.add("A");
         eatGoodsInfo.put("expYear",EXP_DATE.add("Y"));
@@ -76,9 +78,6 @@ class DbAddInterface {
         eatGoodsArray.add(eatGoodsInfo); //식료품의 정보를 받는 JSONArray에 식료품 속성들의 정보가 모두 담긴 오브젝트를 삽입
         mainDbObject.put("eatGoods", eatGoodsArray); // 물품 전체 db에 추가된 식료품 JSONArray를 넣음
         Db.putDb(mainDbObject); //물품 전체 db를 물품 전체 db원본에 최신화시켜줌
-
-        System.out.println(eatGoodsInfo); // test
-
     }
     //비식료품 추가 메소드
     public void notEatGoodsAdd()  {
@@ -86,7 +85,7 @@ class DbAddInterface {
         JSONArray notEatGoodsArray = (JSONArray) mainDbObject.get("notEatGoods"); //비식료품들의 JSONObject정보들을 담을 JSONArray 선언
         JSONObject notEatGoodsInfo = new JSONObject(); // 비식료품 속성들의 정보가 들어갈 JSONObject 선언
 
-        System.out.println("\n <비식료품의 추가를 선택하셨습니다.> \n");
+        System.out.println("\n<비식료품의 추가를 선택하셨습니다.> \n");
 
         notEatGoodsInfo = BASIC_ADD.add("B");
 
@@ -101,7 +100,7 @@ class DbAddInterface {
         JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods");
         JSONObject autoEatGoodsInfo = new JSONObject();
 
-        System.out.println("\n <자동구매 식료품의 추가를 선택하셨습니다.> \n");
+        System.out.println("\n<자동구매 식료품의 추가를 선택하셨습니다.> \n");
 
         autoEatGoodsInfo = BASIC_ADD.add("C");
         autoEatGoodsInfo.put("expYear",EXP_DATE.add("Y"));
@@ -120,7 +119,7 @@ class DbAddInterface {
         JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
         JSONObject autoNotEatGoodsInfo;
 
-        System.out.println("\n <자동구매 비식료품의 추가를 선택하셨습니다.> \n");
+        System.out.println("\n<자동구매 비식료품의 추가를 선택하셨습니다.> \n");
 
         autoNotEatGoodsInfo = BASIC_ADD.add("D");
         autoNotEatGoodsInfo.put("autoBuy", AUTO_BUY.add());

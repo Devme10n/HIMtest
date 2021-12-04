@@ -10,7 +10,11 @@ import org.json.simple.JSONObject;
 import java.time.LocalDate;
 
 public class ExpNotification implements Observer {
-    public static List<String> alarmArray;
+    public static List<String> alarmArray = new ArrayList<String>();
+
+    public ExpNotification() {
+        alarmArray.add("# 유통기한 알람 없음.");
+    }
 
     ExpCheck expCheck = new ExpCheck();
     public void update(){
@@ -61,7 +65,7 @@ class ExpCheck {
                                     ExpNotification.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 지났습니다.");
 
                                 else
-                                    ExpNotification.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 오늘까지 입니다.");
+                                    ExpNotification.alarmArray.add( "# "+object.get("addYear") +"년 "+object.get("addMonth")+"월 "+object.get("addDay")+"일에 추가된 "+object.get("code")+"코드의 "+object.get("name")+" 이(가) 유톻기한이 오늘까지입니다.");
                             }
                             if ((Integer.parseInt(checkDay) - d) > 0 && (Integer.parseInt(checkDay) - d) <= 3){
                                 int countDown = Integer.parseInt(checkDay) - d;

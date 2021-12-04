@@ -22,7 +22,11 @@ public class BotMain {
     public void printBotLog() {
 
         array = BotLog.getLog();
-        System.out.println("\n\n ==========봇 자동구매 로그==========");
+        if (array.size() == 0) {
+            System.out.println("\nerror. 봇은 아직 자동구매를 하지 않았습니다.");
+            return;
+        }
+        System.out.println("\n==========봇 자동구매 로그==========");
         for(int i=0; i<array.size(); i++){
             System.out.println("\n ===>"+(i+1)+"번 로그");
             JSONObject obj = (JSONObject) array.get(i);
@@ -30,13 +34,14 @@ public class BotMain {
             System.out.print(" // 코드 = "+obj.get("code"));
             System.out.print(" // 이름 = "+obj.get("name"));
             System.out.print(" // 구매개수 = "+obj.get("quantity"));
+            System.out.println("\n");
         }
-
-
+        System.out.println("\n");
     }
     public void printAlarm() {
-        System.out.println("프린트알람 진입");//testttttttttttttttttttttttttttttttttt
         List<String> array = ExpNotification.alarmArray;
+        if (array.size() == 0)
+            System.out.println("# 유통기한 알림 없음.");
         for(int i=0; i<array.size() ; i++){
             System.out.println(array.get(i));
         }

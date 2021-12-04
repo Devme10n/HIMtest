@@ -7,11 +7,13 @@ public class Login {
 
     public static void login() {
 
-        int cnt = 0;
-        System.out.println("========= 로그인 ==========");
+        int cntpw = 0;
+        int cntid = 0;
+
 
         while(true){
 
+            System.out.println("\n========= 로그인 ==========");
             String id= UserInput.simple("ID : ");
             String password =UserInput.simple("PW : ");
 
@@ -22,18 +24,18 @@ public class Login {
                 }
                 else {
                     System.out.println("비밀번호가 다릅니다.");
-                    cnt++;
+                    cntpw++;
                 }
                 throw new Exception(); //강제 에러 출력
             }
             catch (Exception e){
                 if(!UserDateSet.userList.containsKey(id)) {
-                    System.out.println("없는 계정입니다. 회원 가입으로 전환합니다.");
-                    Register.register();
+                    System.out.println("없는 계정입니다.");
+                    cntid++;
                 }
             }
             finally{
-                if(cnt ==3) {//카운터 값을 줘 3번 실패시 회원가입 창으로 넘어가게 했다.
+                if(cntpw ==3 || cntid == 3) {//카운터 값을 줘 3번 실패시 회원가입 창으로 넘어가게 했다.
                     System.out.println("로그인을 3회 실패했습니다. 처음부터 다시 진행해 주세요.");
                     Main.login();
                     return;

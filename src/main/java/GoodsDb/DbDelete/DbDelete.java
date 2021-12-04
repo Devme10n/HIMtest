@@ -6,8 +6,9 @@ import GoodsDb.Db;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import java.util.Objects;
+
 public class DbDelete {
-    UserInput userInput = new UserInput();
     DbPrinter dbPrinter = new DbPrinter();
     String userSel;
     String index;
@@ -15,8 +16,8 @@ public class DbDelete {
     public void delete() {
         JSONObject mainDbObject = Db.getDb(); //물품 전체 db를 JSONObject로 가져옴
         goodsArray = new JSONArray();
-        System.out.println("\n <물건 삭제 기능에 들어오셨습니다.> \n");
-        userSel = userInput.selFour("어떤 분류를 선택하시겠습니까? (식료품 = 1, 비식료품 = 2, 자동구매 식료품 = 3, 자동구매 비식료품 = 4 입력) :");
+        System.out.println("\n<물건 삭제 기능에 들어오셨습니다.> \n");
+        userSel = UserInput.selFive("어떤 분류를 선택하시겠습니까? (식료품 = 1, 비식료품 = 2, 자동구매 식료품 = 3, 자동구매 비식료품 = 4, 나가기 = 5) :");
         switch (userSel){
             case "1" :
                 dbPrinter.eatGoodsPrint();
@@ -38,16 +39,19 @@ public class DbDelete {
                 goodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
                 index = "autoNotEatGoods";
                 break;
+            case "5" :
+                return;
         }
         if (goodsArray.size() == 0){
-            System.out.println("error.해당 분류에는 물품이 없습니다.");
             delete();
             return;
         }
         execute(mainDbObject, goodsArray, index);
     }
     void execute(JSONObject mainDbObject, JSONArray array, String index) {
-        userSel = userInput.integer("\n\n 몇번 물품을 삭제하시겠습니까? :");
+        userSel = UserInput.integer("\n\n 몇번 물품을 삭제하시겠습니까? (나가려면 9999 입력):");
+        if (Objects.equals(userSel, "9999"))
+            return;
         if (Integer.parseInt(userSel) > goodsArray.size()){
             System.out.println("error.리스트에 있는 번호를 입력해주세요.");
             execute(mainDbObject, array, index);
