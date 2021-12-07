@@ -123,10 +123,10 @@ class AutoBuyPrinter extends PrinterDecorator {
 
     public JSONObject print() {
         obj = super.print();
-        printExp(obj);
+        printAutoBuy(obj);
         return obj;
     }
-    private void printExp(JSONObject inObj) {
+    private void printAutoBuy(JSONObject inObj) {
         System.out.println(" // 자동구매 개수 = "+inObj.get("autoBuy"));
     }
 }
