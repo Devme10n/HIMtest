@@ -17,13 +17,13 @@ public class ExpConfirm implements Observer {
     ExpCheck expCheck = new ExpCheck();
     public void update(){
         JSONObject mainDbObject = Db.getDb();
-        JSONArray eatGoodsArray = (JSONArray) mainDbObject.get("eatGoods"); //eatGoodsArray을 선언하고, 식료품들의 JSONObject정보들을 담음
-        JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods"); //autoEatGoodsArray을 선언하고, 자동구매 식료품들의 JSONObject정보들을 담음
+        JSONArray eatGoodsArray = (JSONArray) mainDbObject.get("eatGoods");
+        //eatGoodsArray을 선언하고, 식료품들의 JSONObject정보들을 담음
+        JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods");
+        //autoEatGoodsArray을 선언하고, 자동구매 식료품들의 JSONObject정보들을 담음
         ExpConfirm.alarmArray = new ArrayList<String>();
         expCheck.check(eatGoodsArray);
         expCheck.check(autoEatGoodsArray);
-
-
     }
 }
 class ExpCheck {

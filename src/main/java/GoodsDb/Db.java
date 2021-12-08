@@ -33,7 +33,8 @@ public class Db extends Subject {
     //전달받은 JSONObject를 allGoodsDb에 덮어쓰는 메소드
     public static void putDb(JSONObject put){
         allGoodsDb = put;
-        notifyObservers(); //부모클래스인 Subject 클래스의 notifyObservers 메소드 호출, 메인DB가 변경됨을 통보 대상인 Observer 인터페이스에게 통보
+        notifyObservers();
+        //부모클래스인 Subject 클래스의 notifyObservers 메소드 호출, 메인DB가 변경됨을 통보 대상인 Observer 인터페이스에게 통보
 
     }
 }

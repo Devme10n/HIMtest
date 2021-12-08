@@ -14,15 +14,16 @@ public class AutoBuy implements Observer {
     //옵저버가 변경통보를 하면 호출되는 메소드
     public void update (){
         JSONObject mainDbObject = Db.getDb();
-        JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods"); //autoEatGoodsArray을 선언하고, 자동구매 식료품들의 JSONObject정보들을 담음
-        JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods"); //autoNotEatGoodsArray을 선언하고, 자동구매 비식료품들의 JSONObject정보들을 담음
+        JSONArray autoEatGoodsArray = (JSONArray) mainDbObject.get("autoEatGoods");
+        //autoEatGoodsArray을 선언하고, 자동구매 식료품들의 JSONObject정보들을 담음
+        JSONArray autoNotEatGoodsArray = (JSONArray) mainDbObject.get("autoNotEatGoods");
+        //autoNotEatGoodsArray을 선언하고, 자동구매 비식료품들의 JSONObject정보들을 담음
 
         quantityCheck.check(autoEatGoodsArray, "y");
         quantityCheck.check(autoNotEatGoodsArray, "n");
-
     }
 }
-//
+
 class QuantityCheck {
     String numPurchas;
     String numValue;
